@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -18,25 +19,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: const [
               Image(
-                image: AssetImage("assets/logo.png",),
+                image: AssetImage(
+                  "assets/logo.png",
+                ),
               ),
-              Text("WELCOME",
+              Text(
+                "WELCOME",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: const Color(0XFF0DF5E3),
                     fontWeight: FontWeight.bold,
-                    fontSize:40
-                ),),
-              Image(
-                image: AssetImage("assets/battle.PNG",),height: 200,
+                    fontSize: 40),
               ),
-
+              Image(
+                image: AssetImage(
+                  "assets/battle.PNG",
+                ),
+                height: 200,
+              ),
             ],
           ),
         ));
   }
 }
+
+//bg color: Color(0xFf201A30)
+// button color: const Color(0XFF0DF5E3)

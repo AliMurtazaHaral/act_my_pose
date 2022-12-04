@@ -1,6 +1,11 @@
+import 'package:act_my_pose/screens/result_screen.dart';
+import 'package:act_my_pose/screens/vote_screen.dart';
 import 'package:act_my_pose/screens/waiting_screen.dart';
+import 'package:act_my_pose/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//bg color: Color(0xFf201A30)
+// button color: const Color(0XFF0DF5E3)
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -29,6 +34,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -52,6 +63,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -75,6 +92,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -98,6 +121,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -121,6 +150,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -144,6 +179,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -167,6 +208,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -190,6 +237,12 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -206,172 +259,260 @@ class _SignupScreenState extends State<SignupScreen> {
     );
     return Container(
         constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
+        color: Color(0xFf201A30),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-
-          body: Column(
-
-            children: [
-              Image(image: AssetImage("assets/logo.png"),height: 150,),
-              Column(
-                children: [
-                  Text('SIGNUP FORM',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
-
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("EMAIL ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: emailField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("USERNAME  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: userNameField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("PASSWORD  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: passwordField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("CONFIRM\nPASSWORD  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: confirmPasswordField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("AGE  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: ageField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("COUNTRY  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: countryField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("CITY  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*.6,
-                        child: cityField,
-                      )
-                    ],
-                  ),),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image(
+                  image: AssetImage("assets/logo.png"),
+                  height: 150,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'SIGNUP FORM',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.025,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "EMAIL ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: emailField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "USERNAME  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: userNameField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "PASSWORD  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: passwordField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "CONFIRM\nPASSWORD  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: confirmPasswordField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "AGE  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: ageField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "COUNTRY  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: countryField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "CITY  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: cityField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "ADDRESS  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .6,
+                            child: addressField,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("ADDRESS  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width*.6,
-                          child: addressField,
+                        Material(
+                          elevation: 5,
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color(0XFF0DF5E3),
+                          child: MaterialButton(
+                            padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                            minWidth: MediaQuery.of(context).size.width * 0.2,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Vote_Screen()));
+                            },
+                            child: Text(
+                              "AS A\nAUDIENCE",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Material(
+                          elevation: 5,
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color(0XFF0DF5E3),
+                          child: MaterialButton(
+                            padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                            minWidth: MediaQuery.of(context).size.width * 0.2,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WaitingScreen()));
+                            },
+                            child: Text(
+                              "AS A\nPLAYER",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         )
                       ],
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Material(
-                        elevation: 5,
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.purple,
-                        child: MaterialButton(
-
-                          padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                          minWidth: MediaQuery.of(context).size.width * 0.2,
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>WaitingScreen()));
-                          },
-                          child: Text(
-                            "AS A\nAUDIENCE",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-
-                          ),),),
-                      Material(
-                        elevation: 5,
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.purple,
-                        child: MaterialButton(
-
-                          padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                          minWidth: MediaQuery.of(context).size.width * 0.2,
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>WaitingScreen()));
-                          },
-                          child: Text(
-                            "AS A\nPLAYER",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-
-                          ),),)
-                    ],
-                  )
-                ],
-              ),
-            ],
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }

@@ -1,6 +1,9 @@
+//bg color: Color(0xFf201A30)
+// button color: const Color(0XFF0DF5E3)
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
 class ResultScreen extends StatefulWidget {
   const ResultScreen({Key? key}) : super(key: key);
 
@@ -16,7 +19,7 @@ class _ResultScreenState extends State<ResultScreen> {
     ChartData(4, 32),
     ChartData(5, 40)
   ];
-  List<ChartSampleData > chartData = <ChartSampleData>[
+  List<ChartSampleData> chartData = <ChartSampleData>[
     ChartSampleData(x: 1, y: 30),
     ChartSampleData(x: 2, y: 25),
     ChartSampleData(x: 3, y: 20),
@@ -25,48 +28,54 @@ class _ResultScreenState extends State<ResultScreen> {
     ChartSampleData(x: 6, y: 45),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
         constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
+        color: Color(0xFf201A30),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image(
-                  image: AssetImage("assets/logo.png",),height: 200,
+                image: AssetImage(
+                  "assets/logo.png",
+                ),
+                height: 200,
               ),
-              Text("RESULTS",
+              Text(
+                "RESULTS",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize:40
-                ),),
+                  color: const Color(0XFF0DF5E3),
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                ),
+              ),
               SfCartesianChart(
                 series: <ColumnSeries<ChartSampleData, double>>[
                   ColumnSeries<ChartSampleData, double>(
                     dataLabelSettings: const DataLabelSettings(
-
-                        isVisible: true, textStyle: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
-                    color: Colors.purple,
+                        isVisible: true,
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                    color: const Color(0XFF0DF5E3),
                     dataSource: chartData,
                     xValueMapper: (ChartSampleData sales, _) => sales.x,
                     yValueMapper: (ChartSampleData sales, _) => sales.y,
                   ),
                 ],
               ),
-              Text("P5 WINS",
+              Text(
+                "P5 WINS",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: const Color(0XFF0DF5E3),
                     fontWeight: FontWeight.bold,
-                    fontSize:40
-                ),),
+                    fontSize: 40),
+              ),
             ],
           ),
         ));
@@ -74,10 +83,11 @@ class _ResultScreenState extends State<ResultScreen> {
 }
 
 class ChartSampleData {
-  ChartSampleData({required this.x,required this.y});
+  ChartSampleData({required this.x, required this.y});
   final double x;
   final double y;
 }
+
 class ChartData {
   ChartData(this.number, this.score);
 

@@ -27,6 +27,12 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -50,102 +56,127 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: const Color(0XFF0DF5E3),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         fillColor: Colors.white,
         filled: true,
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "",
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
     );
     return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
-      child: Scaffold(
-          backgroundColor: Colors.transparent,
-
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      Image(image: AssetImage("assets/logo.png")),
-      Column(
-        children: [
-          Row(
-            children: [
-              Text("USER NAME ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-              SizedBox(
-                width: MediaQuery.of(context).size.width*.6,
-                child: emailField,
-              )
-            ],
+        constraints: const BoxConstraints.expand(),
+        // decoration: const BoxDecoration(
+        //     image: DecorationImage(
+        //         image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
+        child: Scaffold(
+          backgroundColor: const Color(0XFF201A30),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image(image: AssetImage("assets/logo.png")),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          "EMAIL:           ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .6,
+                          child: emailField,
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "PASSWORD: ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .6,
+                          child: passwordField,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Material(
+                      elevation: 5,
+                      borderRadius: BorderRadius.circular(20),
+                      color: const Color(0XFF0DF5E3),
+                      child: MaterialButton(
+                        padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                        minWidth: MediaQuery.of(context).size.width * 0.2,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignupScreen()));
+                        },
+                        child: const Text(
+                          "SIGN UP",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Material(
+                      elevation: 5,
+                      borderRadius: BorderRadius.circular(20),
+                      color: const Color(0XFF0DF5E3),
+                      child: MaterialButton(
+                        padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                        minWidth: MediaQuery.of(context).size.width * 0.2,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TaskScreen()));
+                        },
+                        child: const Text(
+                          "LOGIN",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
-          SizedBox(height: 10,),
-          Row(
-            children: [
-              Text("PASSWORD  ",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-              SizedBox(
-                width: MediaQuery.of(context).size.width*.6,
-                child: passwordField,
-              )
-            ],
-          ),
-        ],
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Material(
-            elevation: 5,
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.purple,
-            child: MaterialButton(
-
-              padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-              minWidth: MediaQuery.of(context).size.width * 0.2,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
-              },
-              child: Text(
-                "SIGN UP",
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-
-              ),),),
-          Material(
-            elevation: 5,
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.purple,
-            child: MaterialButton(
-
-              padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-              minWidth: MediaQuery.of(context).size.width * 0.2,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>TaskScreen()));
-              },
-              child: Text(
-                "LOGIN",
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-
-              ),),)
-        ],
-      )
-    ],
-    ),
-    ));
+        ));
   }
 }
