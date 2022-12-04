@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -35,25 +35,26 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
-        child: Column(
-          children: [
-            Container(
-              color: Colors.white,
-              child: Image.asset("assets/logo.png"),
-            ),
-            Text(
-              'LOADING...',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-          ],
-        ));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SpinKitCircle(
+          duration: const Duration(seconds: 2),
+          size: 140,
+          itemBuilder: (context, index){
+            final colors = [Colors.white , Colors.red , Colors.yellow];
+            final color = colors[index % colors.length];
+
+            return DecoratedBox(decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle
+            ),);
+          },
+        ),
+      ),
+    );
   }
 }
+
+
+

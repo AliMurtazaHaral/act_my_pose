@@ -27,16 +27,18 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0XFF0DF5E3),
-          ),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 2.0,
+          ),
         ),
-        fillColor: Colors.white,
+        fillColor: Color(0XFF201A30),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "",
+        hintText: "Email",
+        prefix: Icon(Icons.email,color: Colors.grey,),
         hintStyle: const TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
@@ -56,19 +58,21 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: const Color(0XFF0DF5E3),
-          ),
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 2.0,
+          ),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        fillColor: Colors.white,
+        fillColor: Color(0XFF201A30),
         filled: true,
+          prefix: const Icon(Icons.email,color: Colors.grey,),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "",
+        hintText: "Password",
         hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
@@ -87,92 +91,73 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 Image(image: AssetImage("assets/logo.png")),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        const Text(
-                          "EMAIL:           ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * .6,
-                          child: emailField,
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          "PASSWORD: ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * .6,
-                          child: passwordField,
-                        )
-                      ],
-                    ),
-                  ],
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Login',style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),)),
                 ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Please Sign in to continue',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.normal),)),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                emailField,
+                const SizedBox(
+                  height: 10,
+                ),
+                passwordField,
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0XFF0DF5E3),
-                      child: MaterialButton(
-                        padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                        minWidth: MediaQuery.of(context).size.width * 0.2,
-                        onPressed: () {
+                Material(
+                  elevation: 5,
+                  borderRadius: BorderRadius.circular(40),
+                  color: const Color(0XFF0DF5E3),
+                  child: MaterialButton(
+                    padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                    minWidth: MediaQuery.of(context).size.width * 0.5,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TaskScreen()));
+                    },
+                    child: const Text(
+                      "LOGIN",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Padding(
+                  padding: EdgeInsets.only(left: 60),
+                  child: Row(
+                    children: [
+                      const Text("Don't have an Account?",
+                        style: TextStyle(
+                          color: Colors.grey
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SignupScreen()));
                         },
-                        child: const Text(
-                          "SIGN UP",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0XFF0DF5E3),
-                      child: MaterialButton(
-                        padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                        minWidth: MediaQuery.of(context).size.width * 0.2,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TaskScreen()));
-                        },
-                        child: const Text(
-                          "LOGIN",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    )
-                  ],
+                        child: Text('Sign up',style: TextStyle(
+                          color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
+                        ),),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),

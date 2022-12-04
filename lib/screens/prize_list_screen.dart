@@ -16,46 +16,48 @@ class Prize_List_Screen extends StatelessWidget {
         title: Text("Vote a Player"),
         backgroundColor: const Color(0XFF0DF5E3),
       ),
-      body: Center(
-          child: Column(
-        children: [
-          Image(image: AssetImage("assets/logo.png"), color: Colors.cyan),
-          Text(
-            "Prize List",
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-              color: const Color(0XFF0DF5E3),
-            ),
-          ),
-          Prize(Player: "Watch      "),
-          Prize(Player: "Phone      "),
-          Prize(Player: "Bike          "),
-          Prize(Player: "Laptop     "),
-          Prize(Player: "Money     "),
-          TextButton.icon(
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(const Color(0XFF0DF5E3))),
-            // onPressed:
-            // uploadImage,
-            onPressed: () async {
-              Navigator.pop(context);
-            },
+      body: SingleChildScrollView(
+        child: Center(
+            child: Column(
+              children: [
+                Image(image: AssetImage("assets/logo.png"), color: Colors.cyan),
+                Text(
+                  "Prize List",
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: const Color(0XFF0DF5E3),
+                  ),
+                ),
+                Prize(Player: "Watch      "),
+                Prize(Player: "Phone      "),
+                Prize(Player: "Bike          "),
+                Prize(Player: "Laptop     "),
+                Prize(Player: "Money     "),
+                TextButton.icon(
+                  style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all(const Color(0XFF0DF5E3))),
+                  // onPressed:
+                  // uploadImage,
+                  onPressed: () async {
+                    Navigator.pop(context);
+                  },
 
-            //selectedImage = null,
-            icon: Icon(
-              Icons.subdirectory_arrow_left,
-              color: Colors.white,
-            ),
-            label: Text(
-              "Thankyou",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      )),
+                  //selectedImage = null,
+                  icon: Icon(
+                    Icons.subdirectory_arrow_left,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    "Thankyou",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            )),
+      ),
     );
   }
 }
