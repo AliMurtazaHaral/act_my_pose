@@ -23,18 +23,37 @@ class _TaskScreenState extends State<TaskScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image(
-                image: AssetImage("assets/logo.png",),
+                image: AssetImage("assets/logo.png",),height: 200,width: MediaQuery.of(context).size.width*.8,
               ),
-              Text("WELCOME",
+              Text("Task 1",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize:40
+                    fontSize:30
                 ),),
               Image(
-                image: AssetImage("assets/battle.PNG",),height: 200,
+                image: AssetImage("assets/pose.PNG",),height: 200,
               ),
+              Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.purple,
+                child: MaterialButton(
 
+                  padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                  minWidth: MediaQuery.of(context).size.width * 0.2,
+                  onPressed: () {
+
+                  },
+                  child: Text(
+                    "SUBMIT",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+
+                        color: Color(0xFf201A30),
+                        fontWeight: FontWeight.bold),
+
+                  ),),)
             ],
           ),
         ));

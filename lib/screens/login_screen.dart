@@ -1,5 +1,6 @@
 import 'package:act_my_pose/screens/result_screen.dart';
 import 'package:act_my_pose/screens/signup_screen.dart';
+import 'package:act_my_pose/screens/task_screen.dart';
 import 'package:act_my_pose/screens/waiting_screen.dart';
 import 'package:act_my_pose/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -130,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
               minWidth: MediaQuery.of(context).size.width * 0.2,
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>TaskScreen()));
               },
               child: Text(
                 "LOGIN",
