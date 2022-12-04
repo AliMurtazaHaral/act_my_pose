@@ -34,6 +34,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Image(
                 image: AssetImage("assets/battle.PNG",),height: 200,
               ),
+
             ],
           ),
         ));
