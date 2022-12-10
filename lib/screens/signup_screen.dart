@@ -1,3 +1,4 @@
+import 'package:act_my_pose/screens/audience_dashboard.dart';
 import 'package:act_my_pose/screens/login_screen.dart';
 import 'package:act_my_pose/screens/result_screen.dart';
 import 'package:act_my_pose/screens/task_screen.dart';
@@ -192,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TaskScreen()));
+                                builder: (context) => Audience_Dashboard_Screen()));
                       },
                       child: const Text(
                         "SIGN UP",

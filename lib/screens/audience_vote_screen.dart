@@ -5,7 +5,6 @@ import 'package:act_my_pose/screens/audience_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void main() => runApp(const Vote_Screen());
 
 class Vote_Screen extends StatelessWidget {
   const Vote_Screen({super.key});

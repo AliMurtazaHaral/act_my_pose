@@ -1,3 +1,4 @@
+import 'package:act_my_pose/screens/player_dashboard.dart';
 import 'package:act_my_pose/screens/result_screen.dart';
 import 'package:act_my_pose/screens/signup_player_screen.dart';
 import 'package:act_my_pose/screens/signup_screen.dart';
@@ -153,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TaskScreen()));
+                          builder: (context) => Player_Dashboard_Screen()));
                 },
                 child: const Text(
                   "LOGIN",
