@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.repeat();
     Timer(
-        Duration(seconds: 2),
+        Duration(seconds: 6),
         () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginScreen())));
   }
@@ -35,24 +35,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: SpinKitCircle(
-          duration: const Duration(seconds: 2),
-          size: 140,
-          itemBuilder: (context, index){
-            final colors = [Colors.white , Colors.red , Colors.yellow];
-            final color = colors[index % colors.length];
-
-            return DecoratedBox(decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle
-            ),);
-          },
-        ),
-      ),
-    );
+    return Container(
+        color: Colors.white, child: Image.asset("assets/splash.mp4"));
   }
 }
 
