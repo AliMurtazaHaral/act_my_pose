@@ -5,7 +5,8 @@ import 'package:act_my_pose/screens/waiting_screen.dart';
 import 'package:act_my_pose/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -16,6 +17,28 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  late VideoPlayerController videoPlayerController;
+
+  ChewieController? chewieController;
+  // init State
+  @override
+  void initState() {
+    super.initState();
+    videoPlayerController = VideoPlayerController.asset("assets/bdvideo.mp4")
+      ..initialize().then((_) {
+        // Once the video has been loaded we play the video and set looping to true.
+        videoPlayerController.play();
+        videoPlayerController.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized.
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    videoPlayerController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
@@ -27,26 +50,18 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
         fillColor: Color(0XFF201A30),
         filled: true,
+
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Email",
-        prefix: Icon(Icons.email,color: Colors.grey,),
+        hintText: " Email",
+        prefixIcon: Icon(Icons.email,color: Colors.grey,),
         hintStyle: const TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+
       ),
     );
     final passwordField = TextFormField(
@@ -58,21 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+
         fillColor: Color(0XFF201A30),
         filled: true,
-          prefix: const Icon(Icons.password,color: Colors.grey,),
+          prefixIcon: const Icon(Icons.lock,color: Colors.grey,),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Password",
+        hintText: " Password",
+        suffixIcon: const Icon(Icons.remove_red_eye,color: Colors.grey,),
         hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
@@ -83,79 +90,54 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFf201A30),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text('LOGIN HERE',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-        leading: Icon(Icons.arrow_back,color: Colors.black,),
+        backgroundColor: Color(0xFf201A30),
+        title: Text('LOGIN HERE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        leading: Icon(Icons.arrow_back,color: Colors.white,),
       ),
-      body: SingleChildScrollView(
+      body: Stack(
+        fit: StackFit.passthrough,
+        children: [
+      SizedBox.expand(
+      child: FittedBox(
+      // If your background video doesn't look right, try changing the BoxFit property.
+      // BoxFit.fill created the look I was going for.
+      fit: BoxFit.fill,
+        child: SizedBox(
+          width: videoPlayerController.value.size?.width ?? 0,
+          height: videoPlayerController.value.size?.height ?? 0,
+          child: VideoPlayer(videoPlayerController),
+        ),
+      ),
+    ),
+    SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              height: 20,
+            Image(
+              image: AssetImage("assets/logo.png"),
+              height: 250,
             ),
-            Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(40),
-              color: const Color(0XFF0DF5E3),
-              child: MaterialButton(
-                padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                minWidth: MediaQuery.of(context).size.width * 0.8,
-                onPressed: () {
+            Column(
+              children: [
 
-                },
-                child: Row(
-                  children: [
-                    Image(image: AssetImage('assets/fn.png')),
-                    const Text(
-                      "SIGN UP WITH FACEBOOK",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                )
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(40),
-              color: const Color(0XFF0DF5E3),
-              child: MaterialButton(
-                padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                minWidth: MediaQuery.of(context).size.width * 0.8,
-                onPressed: () {
-
-                },
-                child: const Text(
-                  "SIGN UP WITH GOOGLE",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                const Padding(
+                  padding: EdgeInsets.only(left: 0),
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Text('Login with your email',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.normal),)),
                 ),
-              ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                  child: emailField,),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                  child: passwordField,),
+              ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 0),
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Text('Or login with your email',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.normal),)),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(padding: EdgeInsets.only(left: 20,right: 20),
-            child: emailField,),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(padding: EdgeInsets.only(left: 20,right: 20),
-              child: passwordField,),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
             ),
@@ -164,8 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(40),
               color: const Color(0XFF0DF5E3),
               child: MaterialButton(
-                padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                minWidth: MediaQuery.of(context).size.width * 0.5,
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                minWidth: MediaQuery.of(context).size.width * 0.8,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -180,12 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 100,),
             Padding(
-              padding: EdgeInsets.only(left: 60),
+              padding: EdgeInsets.only(left: 90),
               child: Row(
                 children: [
-                  const Text("Don't have an Account?",
+                  const Text("New? ",
                     style: TextStyle(
                         color: Colors.grey
                     ),
@@ -197,8 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           MaterialPageRoute(
                               builder: (context) => SignupScreen()));
                     },
-                    child: Text('Sign up',style: TextStyle(
-                        color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
+                    child: Text('Register Here',style: TextStyle(
+                        color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 15
                     ),),
                   )
                 ],
@@ -207,6 +189,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-    );
+        ]
+    ),
+          );
   }
 }
