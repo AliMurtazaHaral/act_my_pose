@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         fillColor: Color(0XFF201A30),
         filled: true,
-          prefix: const Icon(Icons.email,color: Colors.grey,),
+          prefix: const Icon(Icons.password,color: Colors.grey,),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Password",
         hintStyle: TextStyle(
@@ -80,92 +80,133 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-    return Container(
-        constraints: const BoxConstraints.expand(),
-         decoration: const BoxDecoration(
-             image: DecorationImage(
-                 image: AssetImage("assets/bg.jpeg"), fit: BoxFit.cover)),
-        child: Scaffold(
-          backgroundColor: const Color(0XFFf8faf7),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: Text('LOGIN HERE',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-            leading: Icon(Icons.arrow_back,color: Colors.black,),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Login',style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),)),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Please Sign in to continue',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.normal),)),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                emailField,
-                const SizedBox(
-                  height: 10,
-                ),
-                passwordField,
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
-                Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(40),
-                  color: const Color(0XFF0DF5E3),
-                  child: MaterialButton(
-                    padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                    minWidth: MediaQuery.of(context).size.width * 0.5,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TaskScreen()));
-                    },
-                    child: const Text(
-                      "LOGIN",
+    return Scaffold(
+      backgroundColor: const Color(0xFf201A30),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text('LOGIN HERE',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+        leading: Icon(Icons.arrow_back,color: Colors.black,),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Material(
+              elevation: 5,
+              borderRadius: BorderRadius.circular(40),
+              color: const Color(0XFF0DF5E3),
+              child: MaterialButton(
+                padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                minWidth: MediaQuery.of(context).size.width * 0.8,
+                onPressed: () {
+
+                },
+                child: Row(
+                  children: [
+                    Image(image: AssetImage('assets/fn.png')),
+                    const Text(
+                      "SIGN UP WITH FACEBOOK",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ),
-                SizedBox(height: 20,),
-                Padding(
-                  padding: EdgeInsets.only(left: 60),
-                  child: Row(
-                    children: [
-                      const Text("Don't have an Account?",
-                        style: TextStyle(
-                            color: Colors.grey
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignupScreen()));
-                        },
-                        child: Text('Sign up',style: TextStyle(
-                            color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
-                        ),),
-                      )
-                    ],
-                  ),
+                  ],
                 )
-              ],
+              ),
             ),
-          ),
-        ),);
+            const SizedBox(
+              height: 20,
+            ),
+            Material(
+              elevation: 5,
+              borderRadius: BorderRadius.circular(40),
+              color: const Color(0XFF0DF5E3),
+              child: MaterialButton(
+                padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                minWidth: MediaQuery.of(context).size.width * 0.8,
+                onPressed: () {
+
+                },
+                child: const Text(
+                  "SIGN UP WITH GOOGLE",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 0),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text('Or login with your email',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.normal),)),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+            child: emailField,),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+              child: passwordField,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
+            Material(
+              elevation: 5,
+              borderRadius: BorderRadius.circular(40),
+              color: const Color(0XFF0DF5E3),
+              child: MaterialButton(
+                padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
+                minWidth: MediaQuery.of(context).size.width * 0.5,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TaskScreen()));
+                },
+                child: const Text(
+                  "LOGIN",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(height: 20,),
+            Padding(
+              padding: EdgeInsets.only(left: 60),
+              child: Row(
+                children: [
+                  const Text("Don't have an Account?",
+                    style: TextStyle(
+                        color: Colors.grey
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignupScreen()));
+                    },
+                    child: Text('Sign up',style: TextStyle(
+                        color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
+                    ),),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
