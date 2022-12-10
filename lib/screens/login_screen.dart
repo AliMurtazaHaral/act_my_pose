@@ -1,4 +1,5 @@
 import 'package:act_my_pose/screens/result_screen.dart';
+import 'package:act_my_pose/screens/signup_player_screen.dart';
 import 'package:act_my_pose/screens/signup_screen.dart';
 import 'package:act_my_pose/screens/task_screen.dart';
 import 'package:act_my_pose/screens/waiting_screen.dart';
@@ -177,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignupScreen()));
+                              builder: (context) => SignupPlayerScreen()));
                     },
                     child: Text('Register Here',style: TextStyle(
                         color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 15

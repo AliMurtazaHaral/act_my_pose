@@ -106,6 +106,7 @@ class _SignupScreenState extends State<SignupScreen> {
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),
+        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Password",
         hintStyle: const TextStyle(
@@ -119,7 +120,13 @@ class _SignupScreenState extends State<SignupScreen> {
       backgroundColor: const Color(0xFf201A30),
       appBar: AppBar(
         backgroundColor: Color(0xFf201A30),
-        title: Text('SIGN UP HERE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('SIGN UP HERE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text('Login',style: TextStyle(color: Color(0XFF0DF5E3),fontWeight: FontWeight.bold),),
+          ],
+        ),
         leading: Icon(Icons.arrow_back,color: Colors.white,),
       ),
       body: Stack(
