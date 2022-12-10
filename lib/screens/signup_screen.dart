@@ -8,7 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //bg color: Color(0xFf201A30)
 // button color: const Color(0XFF0DF5E3)
-
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
@@ -25,6 +26,28 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController cityController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  late VideoPlayerController videoPlayerController;
+
+  ChewieController? chewieController;
+  // init State
+  @override
+  void initState() {
+    super.initState();
+    videoPlayerController = VideoPlayerController.asset("assets/bdvideo.mp4")
+      ..initialize().then((_) {
+        // Once the video has been loaded we play the video and set looping to true.
+        videoPlayerController.play();
+        videoPlayerController.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized.
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    videoPlayerController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
@@ -36,25 +59,15 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
-        prefix: Icon(Icons.email,color: Colors.grey,),
+        prefixIcon: Icon(Icons.email,color: Colors.grey,),
         fillColor: Color(0XFF201A30),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "email",
+        hintText: " Email",
         hintStyle: const TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
@@ -67,26 +80,18 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
+
         fillColor: Color(0XFF201A30),
         filled: true,
-        prefix: Icon(Icons.person,color: Colors.grey,),
+        prefixIcon: Icon(Icons.person_add_alt_1_sharp,color: Colors.grey,),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "User name",
+        hintText: " User name",
         hintStyle: const TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+
       ),
     );
     final passwordField = TextFormField(
@@ -98,185 +103,127 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
         fillColor: Color(0XFF201A30),
         filled: true,
-        prefix: Icon(Icons.password,color: Colors.grey,),
+        prefixIcon: Icon(Icons.lock,color: Colors.grey,),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Password",
+        hintText: " Password",
         hintStyle: const TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
     );
-    final confirmPasswordField = TextFormField(
-      autofocus: false,
-      controller: confirmPasswordController,
-      obscureText: true,
-      onSaved: (value) {
-        confirmPasswordController.text = value!;
-      },
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
-        fillColor: Color(0XFF201A30),
-        filled: true,
-        prefix: Icon(Icons.password,color: Colors.grey,),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Confirm Password",
-        hintStyle: const TextStyle(
-          color: Colors.grey, // <-- Change this
-          fontSize: null,
-          fontStyle: FontStyle.normal,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+    return Scaffold(
+      backgroundColor: const Color(0xFf201A30),
+      appBar: AppBar(
+        backgroundColor: Color(0xFf201A30),
+        title: Text('SIGN UP HERE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        leading: Icon(Icons.arrow_back,color: Colors.white,),
       ),
-    );
-    final phoneNumberField = TextFormField(
-      autofocus: false,
-      controller: phoneNumberController,
-      keyboardType: TextInputType.text,
-      onSaved: (value) {
-        phoneNumberController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.0,
-          ),
-        ),
-        fillColor: Color(0XFF201A30),
-        filled: true,
-        prefix: Icon(Icons.phone,color: Colors.grey,),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Phone",
-        hintStyle: const TextStyle(
-          color: Colors.grey, // <-- Change this
-          fontSize: null,
-          fontStyle: FontStyle.normal,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-    return Container(
-        constraints: const BoxConstraints.expand(),
-        color: Color(0xFf201A30),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image(
-                  image: AssetImage("assets/logo.png"),
-                  height: 150,
+      body: Stack(
+          fit: StackFit.passthrough,
+          children: [
+            SizedBox.expand(
+              child: FittedBox(
+                // If your background video doesn't look right, try changing the BoxFit property.
+                // BoxFit.fill created the look I was going for.
+                fit: BoxFit.fill,
+                child: SizedBox(
+                  width: videoPlayerController.value.size?.width ?? 0,
+                  height: videoPlayerController.value.size?.height ?? 0,
+                  child: VideoPlayer(videoPlayerController),
                 ),
-                Column(
-                  children: [
-                    Text(
-                      'SIGNUP FORM',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.025,
-                    ),
-                    userNameField,
-                    SizedBox(
-                      height: 10,
-                    ),
-                    emailField,
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    phoneNumberField,
-                    SizedBox(
-                      height: 10,
-                    ),
-                    passwordField,
-                    SizedBox(
-                      height: 10,
-                    ),
-                    confirmPasswordField,
-                    SizedBox(height: 20,),
-                    Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.circular(40),
-                      color: const Color(0XFF0DF5E3),
-                      child: MaterialButton(
-                        padding: const EdgeInsets.fromLTRB(30, 25, 30, 25),
-                        minWidth: MediaQuery.of(context).size.width * 0.5,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TaskScreen()));
-                        },
-                        child: const Text(
-                          "Sign up",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: EdgeInsets.only(left: 80),
-                      child: Row(
-                        children: [
-                          const Text("Have an Account?",
-                            style: TextStyle(
-                                color: Colors.grey
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
-                            },
-                            child: Text('Sign in',style: TextStyle(
-                                color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
-                            ),),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        ));
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image(
+                    image: AssetImage("assets/logo.png"),
+                    height: 250,
+                  ),
+                  Column(
+                    children: [
+
+                      const Padding(
+                        padding: EdgeInsets.only(left: 0),
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Text('Sign up',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.normal),)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                        child: userNameField,),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                        child: emailField,),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                        child: passwordField,),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(40),
+                    color: const Color(0XFF0DF5E3),
+                    child: MaterialButton(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      minWidth: MediaQuery.of(context).size.width * 0.8,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TaskScreen()));
+                      },
+                      child: const Text(
+                        "SIGN UP",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50,),
+                  Padding(
+                    padding: EdgeInsets.only(left: 60),
+                    child: Row(
+                      children: [
+                        const Text("Already have an Account? ",
+                          style: TextStyle(
+                              color: Colors.grey
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupScreen()));
+                          },
+                          child: Text('Login',style: TextStyle(
+                              color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 15
+                          ),),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ]
+      ),
+    );
   }
 }
