@@ -36,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.white, child: Image.asset("assets/splash.mp4"));
+      height: MediaQuery.of(context).size.height*1,
+        color: Colors.white, child: Image(
+        image: AssetImage("assets/splash.gif"), fit: BoxFit.cover));
   }
 }
 

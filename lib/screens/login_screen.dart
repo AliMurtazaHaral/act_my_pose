@@ -82,15 +82,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     return Container(
         constraints: const BoxConstraints.expand(),
-        // decoration: const BoxDecoration(
-        //     image: DecorationImage(
-        //         image: AssetImage("assets/bgImage.jpeg"), fit: BoxFit.cover)),
+         decoration: const BoxDecoration(
+             image: DecorationImage(
+                 image: AssetImage("assets/bg.jpeg"), fit: BoxFit.cover)),
         child: Scaffold(
-          backgroundColor: const Color(0XFF201A30),
+          backgroundColor: const Color(0XFFf8faf7),
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Text('LOGIN HERE',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+            leading: Icon(Icons.arrow_back,color: Colors.black,),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Image(image: AssetImage("assets/logo.png")),
                 const Padding(
                   padding: EdgeInsets.only(left: 20),
                   child: Align(
@@ -142,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       const Text("Don't have an Account?",
                         style: TextStyle(
-                          color: Colors.grey
+                            color: Colors.grey
                         ),
                       ),
                       GestureDetector(
@@ -153,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => SignupScreen()));
                         },
                         child: Text('Sign up',style: TextStyle(
-                          color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
+                            color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 20
                         ),),
                       )
                     ],
@@ -162,6 +166,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-        ));
+        ),);
   }
 }
