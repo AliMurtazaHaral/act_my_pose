@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/bg.jpeg"), fit: BoxFit.cover)),
+                image: AssetImage("assets/waiting_screen_bg.jpeg"), fit: BoxFit.fill)),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
