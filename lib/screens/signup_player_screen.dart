@@ -66,8 +66,12 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
       onSaved: (value) {
         emailController.text = value!;
       },
+      style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         prefixIcon: Icon(Icons.email,color: Colors.grey,),
         fillColor: Color(0XFF201A30),
         filled: true,
@@ -87,9 +91,12 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
       onSaved: (value) {
         userNameController.text = value!;
       },
+      style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.person_add_alt_1_sharp,color: Colors.grey,),
@@ -110,9 +117,12 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
       onSaved: (value) {
         addressController.text = value!;
       },
+      style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.location_on,color: Colors.grey,),
@@ -166,8 +176,12 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
       onSaved: (value) {
         passwordController.text = value!;
       },
+      style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),
@@ -189,7 +203,11 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
         confirmPasswordController.text = value!;
       },
       textInputAction: TextInputAction.done,
+      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),

@@ -36,11 +36,45 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height*1,
-        color: Colors.white, child: Image(
-        image: AssetImage("assets/splash.gif"), fit: BoxFit.cover));
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/bg.jpeg"), fit: BoxFit.cover)),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Image(
+                    image: AssetImage(
+                      "assets/logo.png",
+                    ),
+
+                    width: MediaQuery.of(context).size.width * .8,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                  ),
+                  SpinKitCircle(
+                      duration: const Duration(seconds: 2),
+                      size: 140,
+                      itemBuilder: (context, index) {
+                        final colors = [
+                          Color(0XFF0DF5E3),
+                          Color(0XFF0DF5E3),
+                          Color(0XFF0DF5E3)
+                        ];
+                        final color = colors[index % colors.length];
+
+                        return DecoratedBox(
+                            decoration: BoxDecoration(
+                                color: color, shape: BoxShape.circle));
+                      }),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }
-
-
-

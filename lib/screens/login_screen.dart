@@ -50,11 +50,14 @@ class _LoginScreenState extends State<LoginScreen> {
       onSaved: (value) {
         userNameController.text = value!;
       },
+      style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         fillColor: Color(0XFF201A30),
         filled: true,
-
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Email",
         prefixIcon: Icon(Icons.email,color: Colors.grey,),
@@ -73,15 +76,19 @@ class _LoginScreenState extends State<LoginScreen> {
       onSaved: (value) {
         passwordController.text = value!;
       },
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
 
+      style: TextStyle(color: Colors.white),
+      textInputAction: TextInputAction.done,
+      decoration: const InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0XFF0DF5E3)),
+        ),
         fillColor: Color(0XFF201A30),
         filled: true,
-          prefixIcon: const Icon(Icons.lock,color: Colors.grey,),
+          prefixIcon: Icon(Icons.lock,color: Colors.grey,),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Password",
-        suffixIcon: const Icon(Icons.remove_red_eye,color: Colors.grey,),
+        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
         hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,

@@ -53,7 +53,7 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
               child: Text("WAITING FOR OTHER \n    PLAYERS...." , style: TextStyle(
                 decoration: TextDecoration.none,
                 fontSize: 30,
-                color: Colors.blueGrey,
+                color: const Color(0XFF0DF5E3),
               ),),
             )
           ],
