@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "789713829498",
+    "project_id": "pose-app-b515f",
+    "storage_bucket": "pose-app-b515f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789713829498:android:9eb9ea651d77ed4ac505c3",
+        "android_client_info": {
+          "package_name": "com.example.act_my_pose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789713829498-f9ndhf5b6rjc70uji8oukjafdd7st9kb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.act_my_pose",
+            "certificate_hash": "277515aea411b0013044a346ebc5801091329e23"
+          }
+        },
+        {
+          "client_id": "789713829498-hk9ju29mjtobkml0trm80rceojgvpbgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlh64EWPf_8JTSPI01yrf4K1XPf3RTaWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789713829498-hk9ju29mjtobkml0trm80rceojgvpbgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
