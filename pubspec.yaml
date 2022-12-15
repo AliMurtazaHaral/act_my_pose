@@ -52,7 +52,10 @@ dev_dependencies:
   video_player:
   chewie:
   fluttertoast:
-
+  firebase_auth:
+  firebase_storage:
+  firebase_core:
+  cloud_firestore:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

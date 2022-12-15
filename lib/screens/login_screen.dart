@@ -1,21 +1,16 @@
 import 'package:act_my_pose/screens/player_dashboard.dart';
-import 'package:act_my_pose/screens/result_screen.dart';
 import 'package:act_my_pose/screens/signup_player_screen.dart';
-import 'package:act_my_pose/screens/signup_screen.dart';
-import 'package:act_my_pose/screens/task_screen.dart';
-import 'package:act_my_pose/screens/waiting_screen.dart';
-import 'package:act_my_pose/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -35,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {});
       });
   }
-
   @override
   void dispose() {
     super.dispose();
@@ -52,16 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         fillColor: Color(0XFF201A30),
         filled: true,
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Email",
         prefixIcon: Icon(Icons.email,color: Colors.grey,),
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
@@ -158,10 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 minWidth: MediaQuery.of(context).size.width * 0.8,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Player_Dashboard_Screen()));
+
                 },
                 child: const Text(
                   "LOGIN",
@@ -201,5 +192,20 @@ class _LoginScreenState extends State<LoginScreen> {
         ]
     ),
           );
+  }
+  // login function
+  void signIn(String email, String password) async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((uid) => {
+          Fluttertoast.showToast(msg: "Login Successful"),
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Player_Dashboard_Screen())),
+        })
+        .catchError((e) {
+          Fluttertoast.showToast(msg: "Login is not successful");
+        });
   }
 }

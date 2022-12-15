@@ -1,16 +1,16 @@
 import 'package:act_my_pose/screens/audience_dashboard.dart';
 import 'package:act_my_pose/screens/login_screen.dart';
-import 'package:act_my_pose/screens/result_screen.dart';
-import 'package:act_my_pose/screens/task_screen.dart';
-import 'package:act_my_pose/screens/vote_screen.dart';
-import 'package:act_my_pose/screens/waiting_screen.dart';
-import 'package:act_my_pose/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 //bg color: Color(0xFf201A30)
 // button color: const Color(0XFF0DF5E3)
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+
+import '../model/user_model.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
@@ -21,11 +21,6 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late VideoPlayerController videoPlayerController;
 
@@ -60,16 +55,16 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
         prefixIcon: Icon(Icons.email,color: Colors.grey,),
         fillColor: Color(0XFF201A30),
         filled: true,
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Email",
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
@@ -85,16 +80,16 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.person_add_alt_1_sharp,color: Colors.grey,),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " User name",
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
@@ -111,7 +106,7 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
@@ -119,9 +114,9 @@ class _SignupScreenState extends State<SignupScreen> {
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),
         suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Password",
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
           fontStyle: FontStyle.normal,
@@ -201,6 +196,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       minWidth: MediaQuery.of(context).size.width * 0.8,
                       onPressed: () {
+                        signUp(emailController.text, passwordController.text);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -229,7 +225,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignupScreen()));
+                                    builder: (context) => LoginScreen()));
                           },
                           child: Text('Login',style: TextStyle(
                               color: const Color(0XFF0DF5E3),fontWeight: FontWeight.bold,fontSize: 15
@@ -244,5 +240,31 @@ class _SignupScreenState extends State<SignupScreen> {
           ]
       ),
     );
+  }
+  final _auth = FirebaseAuth.instance;
+  postDetailsToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+    UserModel userModel = UserModel();
+
+    // writing all the values
+
+    userModel.email = emailController.text;
+    userModel.password = passwordController.text;
+    userModel.userName = userNameController.text;
+    await firebaseFirestore
+        .collection("users")
+        .doc(user?.uid)
+        .set(userModel.toBecomeRegistration());
+    Fluttertoast.showToast(msg: "Your account has been created successfully");
+  }
+
+  void signUp(String email, String password) async {
+    await _auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) => {postDetailsToFirestore()})
+        .catchError((e) {
+      Fluttertoast.showToast(msg: e!.message);
+    });
   }
 }

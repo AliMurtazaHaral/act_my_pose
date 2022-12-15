@@ -1,156 +1,56 @@
 class UserModel {
-  String? uid;
+  String? userName;
   String? email;
-  String? fullName;
   String? password;
-  String? cnic;
-  String? profileImageReference;
   String? city;
-  String? profession;
-  String? mobileNumber;
-  String? category;
-  String? bikeNumber;
   String? address;
-  String? shopImageReference;
-  String? shopName;
-  String? rating;
+  String? profession;
   UserModel(
-      {this.uid,
-      this.email,
-      this.fullName,
-      this.password,
-      this.cnic,
-      this.profileImageReference,
-      this.city,
-      this.mobileNumber,
-      this.profession,
-        this.category,
+      {
+        this.userName,
+        this.email,
+        this.password,
+        this.city,
         this.address,
-        this.bikeNumber,
-      this.shopImageReference,
-      this.shopName,
-      this.rating});
+        this.profession
+      });
 
   // receiving data from server
   factory UserModel.fromMapRegsitration(map) {
     return UserModel(
-
       email: map['email'],
-      fullName: map['fullName'],
+      userName: map['userName'],
       password: map['password'],
-      cnic: map['cnic'],
-      profileImageReference: map['profileImageReference'],
+      profession: map['profession']
+    );
+  }
+  factory UserModel.fromMapPlayerRegistration(map) {
+    return UserModel(
+        email: map['email'],
+        userName: map['userName'],
+        password: map['password'],
+        address: map['address'],
+        city: map['city'],
       profession: map['profession'],
     );
   }
-  factory UserModel.fromMapMechanicRegistration(map) {
-    return UserModel(
-
-        email: map['email'],
-        fullName: map['fullName'],
-        password: map['password'],
-        cnic: map['cnic'],
-        profileImageReference: map['profileImageReference'],
-        city: map['city'],
-        profession: map['profession'],
-        mobileNumber: map['mobileNumber']);
-  }
-  factory UserModel.fromMapRiderRegistration(map) {
-    return UserModel(
-        email: map['email'],
-        fullName: map['fullName'],
-        password: map['password'],
-        cnic: map['cnic'],
-        profileImageReference: map['profileImageReference'],
-        city: map['city'],
-        profession: map['profession'],
-        mobileNumber: map['mobileNumber'],
-        address: map['address'],
-        bikeNumber: map['bikeNumber'],
-        rating: map['rating']
-    );
-  }
   // sending data to our server
-  Map<String, dynamic> toMapRegistrationDetails() {
+  Map<String, dynamic> toBecomeRegistration() {
     return {
       'email': email,
-      'fullName': fullName,
+      'userName': userName,
       'password': password,
-      'cnic': cnic,
-      'profileImageReference': profileImageReference,
-      'profession': profession,
+      'profession': 'Audience'
     };
   }
-
-  Map<String, dynamic> toMapUpdateVisitorRegistration() {
+  Map<String, dynamic> toBecomePlayerRegistration() {
     return {
-      'fullName': fullName,
-      'cnic': cnic,
-      'profileImageReference': profileImageReference,
-    };
-  }
-
-  Map<String, dynamic> toMapUpdateMechanicRegistration() {
-    return {
-      'fullName': fullName,
-      'cnic': cnic,
-      'profileImageReference': profileImageReference,
-      'city': city,
-      'mobileNumber': mobileNumber,
-    };
-  }
-
-  Map<String, dynamic> toBecomeMechanicRegistration() {
-    return {
-      'mobileNumber': mobileNumber,
       'city': city,
       'email': email,
-      'fullName': fullName,
+      'fullName': userName,
       'password': password,
-      'cnic': cnic,
-      'rating':'5',
-      'profileImageReference': profileImageReference,
-      'profession': profession,
-    };
-  }
-  Map<String, dynamic> toBecomeShopOwnerRegistration() {
-    return {
-      'mobileNumber': mobileNumber,
-      'city': city,
-      'email': email,
-      'fullName': fullName,
-      'password': password,
-      'cnic': cnic,
-      'profileImageReference': profileImageReference,
-      'profession': profession,
-      'shopName': shopName,
-      'shopImageReference':shopImageReference,
-      'rating':rating
-    };
-  }
-  Map<String, dynamic> toBecomeRiderRegistration() {
-    return {
-      'mobileNumber': mobileNumber,
-      'city': city,
-      'email': email,
-      'fullName': fullName,
-      'password': password,
-      'cnic': cnic,
-      'profileImageReference': profileImageReference,
-      'profession': profession,
-      'bikeNumber': bikeNumber,
-      'address' : address,
-      'rating' : '5'
-    };
-  }
-  Map<String, dynamic> toMechanicCategoryRegistration() {
-    return {
-      'category':category,
-    };
-  }
-  Map<String, dynamic> toMechanicRating() {
-    return {
-      'rating':rating,
+      'address': address,
+      'profession': 'Player'
     };
   }
 }
