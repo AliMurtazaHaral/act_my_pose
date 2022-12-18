@@ -2,7 +2,9 @@
 // button color: const Color(0XFF0DF5E3)
 import 'package:act_my_pose/screens/audience_result_screen.dart';
 import 'package:act_my_pose/screens/audience_vote_screen.dart';
+import 'package:act_my_pose/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Audience_Dashboard_Screen extends StatefulWidget {
   const Audience_Dashboard_Screen({Key? key}) : super(key: key);
@@ -51,7 +53,11 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
                 padding: const EdgeInsets.only(right: 10.0),
                 child: CircleAvatar(
                   backgroundColor: Color(0XFF0DF5E3),
-                  child: IconButton(onPressed: (){}
+                  child: IconButton(onPressed: ()async{
+                    await FirebaseAuth.instance.signOut().then((value) =>
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SplashScreen())));
+
+                  }
                       , icon: Icon(
                         Icons.logout,
                         color: Colors.white,

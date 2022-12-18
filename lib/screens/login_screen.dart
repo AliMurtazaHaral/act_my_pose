@@ -1,3 +1,4 @@
+import 'package:act_my_pose/screens/login_selection_screen.dart';
 import 'package:act_my_pose/screens/player_dashboard.dart';
 import 'package:act_my_pose/screens/signup_player_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +16,12 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late VideoPlayerController videoPlayerController;
-
+  void togglePasswordView() {
+    setState(() {
+      isHidden = !isHidden;
+    });
+  }
+  bool isHidden = true;
   ChewieController? chewieController;
   // init State
   @override
@@ -66,14 +72,14 @@ class _LoginScreenState extends State<LoginScreen> {
     final passwordField = TextFormField(
       autofocus: false,
       controller: passwordController,
-      obscureText: true,
+      obscureText: isHidden,
       onSaved: (value) {
         passwordController.text = value!;
       },
 
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.done,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
@@ -82,7 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
           prefixIcon: Icon(Icons.lock,color: Colors.grey,),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Password",
-        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
+        suffix: InkWell(
+
+          onTap: togglePasswordView,
+          child: Icon(
+            isHidden ? Icons.visibility
+                : Icons.visibility_off,color: Colors.grey,
+          ),
+        ),
         hintStyle: TextStyle(
           color: Colors.grey, // <-- Change this
           fontSize: null,
@@ -152,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 minWidth: MediaQuery.of(context).size.width * 0.8,
                 onPressed: () {
-
+                  signIn(userNameController.text, passwordController.text);
                 },
                 child: const Text(
                   "LOGIN",
@@ -202,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const Player_Dashboard_Screen())),
+              builder: (context) => const CheckScreen())),
         })
         .catchError((e) {
           Fluttertoast.showToast(msg: "Login is not successful");

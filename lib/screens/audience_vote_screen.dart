@@ -4,11 +4,13 @@ import 'package:act_my_pose/screens/player_prize_list_screen.dart';
 import 'package:act_my_pose/screens/audience_result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-
+String? p1V;
+String? p2V;
+String? p3V;
+String? p4V;
+String? p5V;
 class Vote_Screen extends StatelessWidget {
   const Vote_Screen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,53 +21,56 @@ class Vote_Screen extends StatelessWidget {
       ),
       body:
 
-      Center(
-          child: Column(
-        children: [
-          Image(image: AssetImage("assets/logo.png")),
-          Padding(
-            padding: const EdgeInsets.only(left: 50.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Text("Player 1" , style: TextStyle(color: Color(0XFF0DF5E3)),),
-                Text("Player 2" , style: TextStyle(color: Color(0XFF0DF5E3))),
-                Text("Player 3" , style: TextStyle(color: Color(0XFF0DF5E3))),
-                Text("Player 4" , style: TextStyle(color: Color(0XFF0DF5E3))),
-                Text("Player 5" , style: TextStyle(color: Color(0XFF0DF5E3))),
+      SingleChildScrollView(
+        child: Center(
+            child: Column(
+              children: [
+                Image(image: AssetImage("assets/logo.png")),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      Text("Player 1" , style: TextStyle(color: Color(0XFF0DF5E3)),),
+                      Text("Player 2" , style: TextStyle(color: Color(0XFF0DF5E3))),
+                      Text("Player 3" , style: TextStyle(color: Color(0XFF0DF5E3))),
+                      Text("Player 4" , style: TextStyle(color: Color(0XFF0DF5E3))),
+                      Text("Player 5" , style: TextStyle(color: Color(0XFF0DF5E3))),
+                    ],
+                  ),
+                ),
+                Votees(Player: "Task 1"),
+                Votees(Player: "Task 2"),
+                Votees(Player: "Task 3"),
+                Votees(Player: "Task 4"),
+                Votees(Player: "Task 5"),
+
+                TextButton.icon(
+                  style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all(const Color(0XFF0DF5E3))),
+                  // onPressed:
+                  // uploadImage,
+                  onPressed: () async {
+                    if(p1V!=null || p2V!=null || p3V!=null || p4V!=null || p5V!=null){
+                      Fluttertoast.showToast(msg: "Votes added successfully");
+                      Navigator.pop(context);
+                    }
+                  },
+
+                  //selectedImage = null,
+                  icon: Icon(
+                    Icons.text_rotation_none_rounded,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    "Submit Votes",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ],
-            ),
-          ),
-          Votees(Player: "Task 1"),
-          Votees(Player: "Task 2"),
-          Votees(Player: "Task 3"),
-          Votees(Player: "Task 4"),
-          Votees(Player: "Task 5"),
-
-          TextButton.icon(
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(const Color(0XFF0DF5E3))),
-            // onPressed:
-            // uploadImage,
-            onPressed: () async {
-              Fluttertoast.showToast(msg: "Votes added successfully");
-              Navigator.pop(context);
-
-            },
-
-            //selectedImage = null,
-            icon: Icon(
-              Icons.text_rotation_none_rounded,
-              color: Colors.white,
-            ),
-            label: Text(
-              "Submit Votes",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      )),
+            )),
+      )
     );
   }
 }
@@ -119,6 +124,11 @@ class _VoteesState extends State<Votees> {
                 isChecked2 = false;
                 isChecked3 = false;
                 isChecked4 = false;
+                p1V = '1';
+                p2V = null;
+                p3V = null;
+                p4V = null;
+                p5V = null;
               }
             });
           },
@@ -134,6 +144,11 @@ class _VoteesState extends State<Votees> {
             setState(() {
               isChecked1 = value!;
               if(isChecked1 == true){
+                p2V = '1';
+                p1V = null;
+                p3V = null;
+                p4V = null;
+                p5V = null;
                 isChecked0 = false;
                 isChecked2 = false;
                 isChecked3 = false;
@@ -153,6 +168,11 @@ class _VoteesState extends State<Votees> {
             setState(() {
               isChecked2 = value!;
               if(isChecked2 == true){
+                p3V = '1';
+                p2V = null;
+                p1V = null;
+                p4V = null;
+                p5V = null;
                 isChecked1 = false;
                 isChecked0 = false;
                 isChecked3 = false;
@@ -172,6 +192,11 @@ class _VoteesState extends State<Votees> {
             setState(() {
               isChecked3 = value!;
               if(isChecked3 == true){
+                p4V = '1';
+                p2V = null;
+                p3V = null;
+                p1V = null;
+                p5V = null;
                 isChecked1 = false;
                 isChecked2 = false;
                 isChecked0 = false;
@@ -191,6 +216,11 @@ class _VoteesState extends State<Votees> {
             setState(() {
               isChecked4 = value!;
               if(isChecked4 == true){
+                p5V = '1';
+                p2V = null;
+                p3V = null;
+                p4V = null;
+                p1V = null;
                 isChecked1 = false;
                 isChecked2 = false;
                 isChecked3 = false;

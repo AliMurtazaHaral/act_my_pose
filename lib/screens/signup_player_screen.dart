@@ -29,7 +29,18 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late VideoPlayerController videoPlayerController;
-
+  void togglePasswordView() {
+    setState(() {
+      isHidden = !isHidden;
+    });
+  }
+  bool isHidden = true;
+  void togglePasswordView1() {
+    setState(() {
+      isHidden1 = !isHidden1;
+    });
+  }
+  bool isHidden1 = true;
   ChewieController? chewieController;
   // init State
   @override
@@ -172,20 +183,27 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
     final passwordField = TextFormField(
       autofocus: false,
       controller: passwordController,
-      obscureText: true,
+      obscureText: isHidden,
       onSaved: (value) {
         passwordController.text = value!;
       },
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.done,
-      decoration: const InputDecoration(
+      decoration:InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),
-        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
+        suffix: InkWell(
+
+          onTap: togglePasswordView,
+          child: Icon(
+            isHidden ? Icons.visibility
+                : Icons.visibility_off,color: Colors.grey,
+          ),
+        ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Password",
         hintStyle: TextStyle(
@@ -198,20 +216,27 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
     final confirmPasswordField = TextFormField(
       autofocus: false,
       controller: confirmPasswordController,
-      obscureText: true,
+      obscureText: isHidden1,
       onSaved: (value) {
         confirmPasswordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       style: TextStyle(color: Colors.white),
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),
-        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
+        suffix: InkWell(
+
+          onTap: togglePasswordView,
+          child: Icon(
+            isHidden1 ? Icons.visibility
+                : Icons.visibility_off,color: Colors.grey,
+          ),
+        ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Confirm Password",
         hintStyle: TextStyle(
@@ -234,7 +259,7 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SignupPlayerScreen()));
+                        builder: (context) => const LoginScreen()));
               },
               child: const Text('Login',style: TextStyle(
                   color: Color(0XFF0DF5E3),fontWeight: FontWeight.bold
@@ -332,10 +357,11 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
                           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                           minWidth: MediaQuery.of(context).size.width * 0.2,
                           onPressed: () {
+                            signUp(emailController.text, passwordController.text);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Player_Dashboard_Screen()));
+                                    builder: (context) => LoginScreen()));
                           },
                           child: const Text(
                             "AS PLAYER",
@@ -411,7 +437,7 @@ class _SignupPlayerScreenState extends State<SignupPlayerScreen> {
     userModel.password = passwordController.text;
     userModel.userName = userNameController.text;
     userModel.address = addressController.text;
-    userModel.city = cityController.text;
+    userModel.city = selected_item;
     await firebaseFirestore
         .collection("users")
         .doc(user?.uid)

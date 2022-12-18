@@ -56,6 +56,8 @@ dev_dependencies:
   firebase_storage:
   firebase_core:
   cloud_firestore:
+  image_picker:
+  file_picker:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

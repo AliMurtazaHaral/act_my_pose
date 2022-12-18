@@ -23,7 +23,12 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late VideoPlayerController videoPlayerController;
-
+  void togglePasswordView() {
+    setState(() {
+      isHidden = !isHidden;
+    });
+  }
+  bool isHidden = true;
   ChewieController? chewieController;
   // init State
   @override
@@ -100,20 +105,27 @@ class _SignupScreenState extends State<SignupScreen> {
     final passwordField = TextFormField(
       autofocus: false,
       controller: passwordController,
-      obscureText: true,
+      obscureText: isHidden,
       onSaved: (value) {
         passwordController.text = value!;
       },
       style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.done,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF0DF5E3)),
         ),
         fillColor: Color(0XFF201A30),
         filled: true,
         prefixIcon: Icon(Icons.lock,color: Colors.grey,),
-        suffixIcon: Icon(Icons.remove_red_eye,color: Colors.grey,),
+        suffix: InkWell(
+
+          onTap: togglePasswordView,
+          child: Icon(
+            isHidden ? Icons.visibility
+                : Icons.visibility_off,color: Colors.grey,
+          ),
+        ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: " Password",
         hintStyle: TextStyle(
@@ -130,11 +142,27 @@ class _SignupScreenState extends State<SignupScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('SIGN UP HERE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-            Text('Login',style: TextStyle(color: Color(0XFF0DF5E3),fontWeight: FontWeight.bold),),
+            const Text('SIGN UP HERE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
+              },
+              child: const Text('Login',style: TextStyle(
+                  color: Color(0XFF0DF5E3),fontWeight: FontWeight.bold
+              ),),
+            ),
           ],
         ),
-        leading: Icon(Icons.arrow_back,color: Colors.white,),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0XFF0DF5E3)),
+          onPressed: () {
+            // passing this to our root
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Stack(
           fit: StackFit.passthrough,
@@ -200,7 +228,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Audience_Dashboard_Screen()));
+                                builder: (context) => LoginScreen()));
                       },
                       child: const Text(
                         "SIGN UP",

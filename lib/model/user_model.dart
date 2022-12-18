@@ -5,8 +5,10 @@ class UserModel {
   String? city;
   String? address;
   String? profession;
+  String? pose;
   UserModel(
       {
+        this.pose,
         this.userName,
         this.email,
         this.password,
@@ -47,10 +49,22 @@ class UserModel {
     return {
       'city': city,
       'email': email,
-      'fullName': userName,
+      'userName': userName,
       'password': password,
       'address': address,
       'profession': 'Player'
+    };
+  }
+  Map<String, dynamic> toTask() {
+    return {
+      'pose':pose
+    };
+  }
+  Map<String, dynamic> toUpdatePlayerRegistration() {
+    return {
+      'city': city,
+      'userName': userName,
+      'address': address,
     };
   }
 }
