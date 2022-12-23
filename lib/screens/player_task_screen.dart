@@ -77,9 +77,14 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Image(
+                      getUrl==null?Image(
                         image: AssetImage(
                           "assets/pose${randomNumber}.png",
+                        ),
+                        height: 200,
+                      ):Image(
+                        image: NetworkImage(
+                          getUrl.toString(),
                         ),
                         height: 200,
                       ),
@@ -103,9 +108,10 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                                 content: Text('no file selected'),
                               ),
                             );
+
                           } else {
                             final path = result?.files.single.path;
-                            final fileName = 'pose$randomNumber';
+                            final fileName = result?.files.single.name;
                             storage
                                 .uploadFileImage(path, fileName)
                                 .then((value) => const SnackBar(
