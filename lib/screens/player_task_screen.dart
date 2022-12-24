@@ -22,12 +22,12 @@ class Player_Task_Screen extends StatefulWidget {
 }
 
 class _Player_Task_ScreenState extends State<Player_Task_Screen> {
-  late Reference getUrl;
+  Reference? getUrl;
   Random random = new Random();
    // from 0 upto 99 included
   @override
   Widget build(BuildContext context) {
-    int randomNumber = random.nextInt(5)+1;
+    final randomNumber = random.nextInt(5)+1;
     return Stack(
       children: [
         Container(
@@ -77,15 +77,14 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      getUrl==null?Image(
+                      selectedImage==null?Image(
                         image: AssetImage(
                           "assets/pose${randomNumber}.png",
                         ),
                         height: 200,
-                      ):Image(
-                        image: NetworkImage(
-                          getUrl.toString(),
-                        ),
+                      ): Image.file(
+                        selectedImage!,
+                        width: MediaQuery.of(context).size.width * .5,
                         height: 200,
                       ),
                       const SizedBox(
@@ -97,29 +96,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                             MaterialStateProperty.all(const Color(0XFF0DF5E3))),
                         onPressed: () async {
                           StorageModel storage = StorageModel();
-                          final result = await FilePicker.platform.pickFiles(
-                            allowMultiple: false,
-                            type: FileType.custom,
-                            allowedExtensions: ['jpg', 'png'],
-                          );
-                          if (result == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('no file selected'),
-                              ),
-                            );
-
-                          } else {
-                            final path = result?.files.single.path;
-                            final fileName = result?.files.single.name;
-                            storage
-                                .uploadFileImage(path, fileName)
-                                .then((value) => const SnackBar(
-                              content: Text("FIle Has been uploaded successfully"),
-                            ));
-                            getUrl = FirebaseStorage.instance.ref().child(fileName!);
-
-                          }
+                          pickImage(ImageSource.camera);
+                          storage.uploadFileImage(selectedImage!.path, 'pose${randomNumber}.jpg');
                         },
 
                         //selectedImage = null,
@@ -148,10 +126,10 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
 
                           // writing all the values
 
-                          userModel.pose =getUrl.fullPath;
+                          userModel.pose ='pose${randomNumber}.jpg';
                           await firebaseFirestore
-                              .collection("users")
-                              .doc(user?.uid).collection('pose$randomNumber').doc("imgRef")
+                              .collection("tournament")
+                              .doc(user?.uid)
                               .set(userModel.toTask()).then((value) =>
                               Navigator.push(
                                 context,
@@ -159,7 +137,6 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                                     builder: (context) => Player_Result_Screen(),),),);
 
                         },
-
                         //selectedImage = null,
                         icon: Icon(
                           Icons.upload_file,

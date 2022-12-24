@@ -1,6 +1,8 @@
 //bg color: Color(0xFf201A30)
 // button color: const Color(0XFF0DF5E3)
+import 'package:act_my_pose/screens/audience_profike_screen.dart';
 import 'package:act_my_pose/screens/audience_result_screen.dart';
+import 'package:act_my_pose/screens/audience_view_task_screen.dart';
 import 'package:act_my_pose/screens/audience_vote_screen.dart';
 import 'package:act_my_pose/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,9 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
                 padding: const EdgeInsets.only(left: 10.0),
                 child: CircleAvatar(
                   backgroundColor: Color(0XFF0DF5E3),
-                  child: IconButton(onPressed: (){}
+                  child: IconButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AudienceProfileScreen()));
+                  }
                       , icon: const Image(
                         image: AssetImage(
                           "assets/icon_profile.png",
@@ -132,7 +136,9 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
             child: MaterialButton(
                 padding: const EdgeInsets.fromLTRB(20 ,15 ,20 ,15),
                 minWidth: MediaQuery.of(context).size.width * 0.3,
-                onPressed: () async {},
+                onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const AudiendeViewTaskScreen()));
+                },
                 child: Text(
                   "View Tasks",
                   textAlign: TextAlign.center,

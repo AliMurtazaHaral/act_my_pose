@@ -60,6 +60,11 @@ class UserModel {
       'pose':pose
     };
   }
+  Map<String, dynamic> toUpdateAudience() {
+    return {
+      'userName':userName
+    };
+  }
   Map<String, dynamic> toUpdatePlayerRegistration() {
     return {
       'city': city,
