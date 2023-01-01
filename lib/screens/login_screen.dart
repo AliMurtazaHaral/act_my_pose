@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((uid) => {
-
+          markStatus(),
           Fluttertoast.showToast(msg: "Login Successful"),
           Navigator.push(
             context,

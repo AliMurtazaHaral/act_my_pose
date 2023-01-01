@@ -4,6 +4,9 @@ import 'package:act_my_pose/screens/player_waiting_screen.dart';
 import 'package:act_my_pose/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
+import '../model/user_model.dart';
 
 class Player_Dashboard_Screen extends StatefulWidget {
   const Player_Dashboard_Screen({Key? key}) : super(key: key);
@@ -52,6 +55,15 @@ class _Player_Dashboard_ScreenState extends State<Player_Dashboard_Screen> {
                   backgroundColor: Color(0XFF0DF5E3),
                   child: IconButton(
                       onPressed: () async {
+                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                        User? user =  FirebaseAuth.instance.currentUser;
+                        UserModel userModel = UserModel();
+                        userModel.status = 'offline';
+                        // writing all the values
+                        await firebaseFirestore
+                            .collection("users")
+                            .doc('${user!.uid}')
+                            .update(userModel.toStatus());
                         await FirebaseAuth.instance.signOut();
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>SplashScreen()));
                       },
@@ -125,7 +137,18 @@ class _Player_Dashboard_ScreenState extends State<Player_Dashboard_Screen> {
             child: MaterialButton(
                 padding: const EdgeInsets.fromLTRB(25, 15, 25, 15),
                 minWidth: MediaQuery.of(context).size.width * 0.3,
-                onPressed: () async {},
+                onPressed: () async {
+                  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                  User? user =  FirebaseAuth.instance.currentUser;
+                  UserModel userModel = UserModel();
+                  userModel.status = 'offline';
+                  // writing all the values
+                  await firebaseFirestore
+                      .collection("users")
+                      .doc('${user!.uid}')
+                      .update(userModel.toStatus());
+                  SystemNavigator.pop();
+                },
                 child: Text(
                   "Quit Game",
                   textAlign: TextAlign.center,
