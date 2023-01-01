@@ -1,5 +1,6 @@
 //bg color: Color(0xFf201A30)
 // button color: const Color(0XFF0DF5E3)
+import 'dart:async';
 import 'dart:io';
 import 'package:act_my_pose/model/storage_model.dart';
 import 'package:act_my_pose/screens/audience_result_screen.dart';
@@ -25,6 +26,39 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
   Reference? getUrl;
   Random random = new Random();
    // from 0 upto 99 included
+  int timer =300;
+  bool canceltimer = false;
+  String showtimer = "300";
+  int task = 1;
+  @override
+  void initState() {
+    starttimer();
+    super.initState();
+  }
+  void starttimer() async {
+    const onesec = Duration(seconds: 1);
+    Timer.periodic(onesec, (Timer t) {
+      if(mounted) {
+        setState(() {
+          if (timer < 1) {
+            if(task==5) {
+              t.cancel();
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+            }
+            task = task+1;
+            timer =300;
+
+          } else if (canceltimer == true) {
+            t.cancel();
+          } else {
+            timer = timer - 1;
+          }
+          showtimer = timer.toString();
+        });
+      }
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     final randomNumber = random.nextInt(5)+1;
@@ -59,9 +93,9 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      const Text(
-                        "Task 1",
-                        style: TextStyle(
+                      Text(
+                        "Task $task",
+                        style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 30),
@@ -79,7 +113,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                       ),
                       selectedImage==null?Image(
                         image: AssetImage(
-                          "assets/pose${randomNumber}.png",
+                          "assets/pose$task.png",
                         ),
                         height: 200,
                       ): Image.file(
@@ -95,9 +129,9 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                             backgroundColor:
                             MaterialStateProperty.all(const Color(0XFF0DF5E3))),
                         onPressed: () async {
-                          StorageModel storage = StorageModel();
+
                           pickImage(ImageSource.camera);
-                          storage.uploadFileImage(selectedImage!.path, 'pose${randomNumber}.jpg');
+
                         },
 
                         //selectedImage = null,
@@ -120,22 +154,26 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                         // onPressed:
                         // uploadImage,
                         onPressed: () async {
+                          StorageModel storage = StorageModel();
+                          storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
                           FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
                           User? user =  FirebaseAuth.instance.currentUser;
                           UserModel userModel = UserModel();
 
                           // writing all the values
 
-                          userModel.pose ='pose${randomNumber}.jpg';
+                          userModel.pose =selectedImage!.path.split('/').last;
                           await firebaseFirestore
                               .collection("tournament")
-                              .doc(user?.uid)
+                              .doc('${user?.uid} pose$task')
                               .set(userModel.toTask()).then((value) =>
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Player_Result_Screen(),),),);
+                              selectedImage=null,);
 
+                          task= task+1;
+                          timer = 300;
+                          if(task==6){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                          }
                         },
                         //selectedImage = null,
                         icon: Icon(
@@ -147,6 +185,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                      Text(showtimer,style: TextStyle(color: Colors.white),)
                     ],
                   ),
                 ),

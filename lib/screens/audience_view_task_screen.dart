@@ -39,6 +39,7 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
       setState(() {});
     });
   }
+  int a = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +92,7 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Voteees(Player: "Task 1"),
+                                            Voteees(Player: "Task ${a++}"),
                                           ],
                                         )
                                             : const SizedBox();
