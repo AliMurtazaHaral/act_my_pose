@@ -6,6 +6,8 @@ class UserModel {
   String? address;
   String? profession;
   String? pose;
+  String? vote;
+  String? status;
   UserModel(
       {
         this.pose,
@@ -14,7 +16,9 @@ class UserModel {
         this.password,
         this.city,
         this.address,
-        this.profession
+        this.profession,
+        this.vote,
+        this.status
       });
 
   // receiving data from server
@@ -34,6 +38,7 @@ class UserModel {
         address: map['address'],
         city: map['city'],
       profession: map['profession'],
+      status: map['status']
     );
   }
   // sending data to our server
@@ -58,6 +63,16 @@ class UserModel {
   Map<String, dynamic> toTask() {
     return {
       'pose':pose
+    };
+  }
+  Map<String, dynamic> toVote() {
+    return {
+      'vote':'1'
+    };
+  }
+  Map<String, dynamic> toStatus() {
+    return {
+      'status':status
     };
   }
   Map<String, dynamic> toUpdateAudience() {

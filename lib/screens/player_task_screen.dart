@@ -1,6 +1,7 @@
 //bg color: Color(0xFf201A30)
 // button color: const Color(0XFF0DF5E3)
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:act_my_pose/model/storage_model.dart';
 import 'package:act_my_pose/screens/audience_result_screen.dart';
@@ -8,6 +9,8 @@ import 'package:act_my_pose/screens/player_result_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:http/http.dart' as http;
+import 'package:html/parser.dart' as parser;
 import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +18,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/user_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class Player_Task_Screen extends StatefulWidget {
   const Player_Task_Screen({Key? key}) : super(key: key);
 
@@ -113,7 +117,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                       ),
                       selectedImage==null?Image(
                         image: AssetImage(
-                          "assets/pose$task.png",
+                          "assets/pose$task.jpeg",
                         ),
                         height: 200,
                       ): Image.file(
@@ -154,25 +158,124 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                         // onPressed:
                         // uploadImage,
                         onPressed: () async {
-                          StorageModel storage = StorageModel();
-                          storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
-                          FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-                          User? user =  FirebaseAuth.instance.currentUser;
-                          UserModel userModel = UserModel();
+                          uploadImage();
+                          if(selectedImage!=null){
+                            if(message=='Tree pose' && task==1){
+                              StorageModel storage = StorageModel();
+                              storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
+                              FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                              User? user =  FirebaseAuth.instance.currentUser;
+                              UserModel userModel = UserModel();
 
-                          // writing all the values
+                              // writing all the values
 
-                          userModel.pose =selectedImage!.path.split('/').last;
-                          await firebaseFirestore
-                              .collection("tournament")
-                              .doc('${user?.uid} pose$task')
-                              .set(userModel.toTask()).then((value) =>
+                              userModel.pose =selectedImage!.path.split('/').last;
+                              await firebaseFirestore
+                                  .collection("tournament")
+                                  .doc('${user?.uid} pose$task')
+                                  .set(userModel.toTask()).then((value) =>
                               selectedImage=null,);
 
-                          task= task+1;
-                          timer = 300;
-                          if(task==6){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                              task= task+1;
+                              timer = 300;
+                              if(task==6){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                              }
+                            }
+                            else if (message=='warrior2 pose' && task==2){
+                              StorageModel storage = StorageModel();
+                              storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
+                              FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                              User? user =  FirebaseAuth.instance.currentUser;
+                              UserModel userModel = UserModel();
+
+                              // writing all the values
+
+                              userModel.pose =selectedImage!.path.split('/').last;
+                              await firebaseFirestore
+                                  .collection("tournament")
+                                  .doc('${user?.uid} pose$task')
+                                  .set(userModel.toTask()).then((value) =>
+                              selectedImage=null,);
+
+                              task= task+1;
+                              timer = 300;
+                              if(task==6){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                              }
+                            }
+                            else if (message=='T pose' && task==3){
+                              StorageModel storage = StorageModel();
+                              storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
+                              FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                              User? user =  FirebaseAuth.instance.currentUser;
+                              UserModel userModel = UserModel();
+
+                              // writing all the values
+
+                              userModel.pose =selectedImage!.path.split('/').last;
+                              await firebaseFirestore
+                                  .collection("tournament")
+                                  .doc('${user?.uid} pose$task')
+                                  .set(userModel.toTask()).then((value) =>
+                              selectedImage=null,);
+
+                              task= task+1;
+                              timer = 300;
+                              if(task==6){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                              }
+                            }
+                            else if (message=='triangle pose' && task==4){
+                              StorageModel storage = StorageModel();
+                              storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
+                              FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                              User? user =  FirebaseAuth.instance.currentUser;
+                              UserModel userModel = UserModel();
+
+                              // writing all the values
+
+                              userModel.pose =selectedImage!.path.split('/').last;
+                              await firebaseFirestore
+                                  .collection("tournament")
+                                  .doc('${user?.uid} pose$task')
+                                  .set(userModel.toTask()).then((value) =>
+                              selectedImage=null,);
+
+                              task= task+1;
+                              timer = 300;
+                              if(task==6){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                              }
+                            }
+                            else if (message=='Butterfly pose' && task==5){
+                              StorageModel storage = StorageModel();
+                              storage.uploadFileImage(selectedImage!.path,selectedImage!.path.split('/').last);
+                              FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                              User? user =  FirebaseAuth.instance.currentUser;
+                              UserModel userModel = UserModel();
+
+                              // writing all the values
+
+                              userModel.pose =selectedImage!.path.split('/').last;
+                              await firebaseFirestore
+                                  .collection("tournament")
+                                  .doc('${user?.uid} pose$task')
+                                  .set(userModel.toTask()).then((value) =>
+                              selectedImage=null,);
+
+                              task= task+1;
+                              timer = 300;
+                              if(task==6){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                              }
+                            }
+                            else{
+                              Fluttertoast.showToast(msg: "Please Enter correct pose");
+                            }
+                          }
+                          else{
+                            Fluttertoast.showToast(msg: "Please enter pose first ");
                           }
                         },
                         //selectedImage = null,
@@ -201,6 +304,27 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
     selectedImage = File(pickedImage!.path);
     setState(() {
     });
+  }
+  String? message;
+  uploadImage() async {
+    final request = http.MultipartRequest(
+        "POST", Uri.parse("https://14d6-39-32-179-12.in.ngrok.io/upload"));
+    final headers = {"Content-type": "multipart/form-data"};
+    request.files.add(http.MultipartFile('image',
+        selectedImage!.readAsBytes().asStream(),
+        selectedImage!.lengthSync(),
+        filename: selectedImage!
+            .path
+            .split("/")
+            .last));
+
+    request.headers.addAll(headers);
+
+    final response = await request.send();
+    http.Response res = await http.Response.fromStream(response);
+    final resJson = jsonDecode(res.body);
+    message = resJson['message'];
+    print(message);
   }
 }
 

@@ -4,7 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import '../model/storage_model.dart';
 import '../model/user_model.dart';
 import 'audience_vote_screen.dart';
 class AudiendeViewTaskScreen extends StatefulWidget {
@@ -92,7 +93,37 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Voteees(Player: "Task ${a++}"),
+                                            Voteees(Player: "Task ${++a}"),
+                                            TextButton.icon(
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(const Color(0XFF0DF5E3))),
+                                              // onPressed:
+                                              // uploadImage,
+                                              onPressed: () async {
+                                                StorageModel storage = StorageModel();
+                                                FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+                                                User? user =  FirebaseAuth.instance.currentUser;
+                                                UserModel userModel = UserModel();
+
+                                                // writing all the values
+                                                await firebaseFirestore
+                                                    .collection("users")
+                                                    .doc('${data.id.split(' ')[0]}').collection('votes').doc()
+                                                    .set(userModel.toVote());
+                                                Fluttertoast.showToast(msg: "Vote submitted Successfully");
+                                                },
+
+                                              //selectedImage = null,
+                                              icon: const Icon(
+                                                Icons.text_rotation_none_rounded,
+                                                color: Colors.white,
+                                              ),
+                                              label: const Text(
+                                                "Submit Votes",
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
                                           ],
                                         )
                                             : const SizedBox();

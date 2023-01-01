@@ -7,6 +7,10 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../model/user_model.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
@@ -211,6 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((uid) => {
+
           Fluttertoast.showToast(msg: "Login Successful"),
           Navigator.push(
             context,
@@ -220,5 +225,16 @@ class _LoginScreenState extends State<LoginScreen> {
         .catchError((e) {
           Fluttertoast.showToast(msg: "Login is not successful");
         });
+  }
+  markStatus() async{
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user =  FirebaseAuth.instance.currentUser;
+    UserModel userModel = UserModel();
+    userModel.status = 'online';
+    // writing all the values
+    await firebaseFirestore
+        .collection("users")
+        .doc('${user!.uid}')
+        .update(userModel.toStatus());
   }
 }

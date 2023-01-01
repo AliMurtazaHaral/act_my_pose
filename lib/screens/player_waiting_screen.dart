@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:act_my_pose/screens/player_task_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class Player_Waiting_Screen extends StatefulWidget {
   Player_Waiting_Screen({Key? key}) : super(key: key);
 
@@ -16,20 +16,26 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(duration: const Duration(seconds: 4), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-    controller.repeat();
-    Timer(
-        Duration(seconds: 2),
-            () =>
-                Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Player_Task_Screen())));
+    getfirebasedata();
   }
+  int counter = 0;
+  getfirebasedata() async{
 
+    await FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if(doc['status']=='online'){
+          counter++;
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Stack(
+
+    return counter>=5?const Player_Task_Screen(): Stack(
       children: [
         Container(
           child: const Image(image: AssetImage(
