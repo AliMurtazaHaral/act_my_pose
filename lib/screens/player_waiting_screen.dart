@@ -15,8 +15,9 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
   late Animation<double> animation;
   @override
   void initState() {
-    super.initState();
     getfirebasedata();
+    super.initState();
+
   }
   int counter = 0;
   getfirebasedata() async{
@@ -27,7 +28,9 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         if(doc['status']=='online'){
-          counter++;
+          setState(() {
+            counter++;
+          });
         }
       });
     });
@@ -35,7 +38,7 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
   @override
   Widget build(BuildContext context) {
 
-    return counter>=5?const Player_Task_Screen(): Stack(
+    return counter>=1?const Player_Task_Screen(): Stack(
       children: [
         Container(
           child: const Image(image: AssetImage(
