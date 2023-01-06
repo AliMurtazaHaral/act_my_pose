@@ -34,10 +34,20 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
   bool canceltimer = false;
   String showtimer = "300";
   int task = 1;
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
   @override
   void initState() {
     starttimer();
     super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid).get()
+        .then((value) {
+      loggedInUser = UserModel.fromMapPlayerRegistration(value.data());
+      setState(() {});
+    });
   }
   void starttimer() async {
     const onesec = Duration(seconds: 1);
@@ -134,7 +144,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                             MaterialStateProperty.all(const Color(0XFF0DF5E3))),
                         onPressed: () async {
 
-                          pickImage(ImageSource.camera);
+                          pickImage(ImageSource.gallery);
 
                         },
 
@@ -158,7 +168,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                         // onPressed:
                         // uploadImage,
                         onPressed: () async {
-                          uploadImage();
+                          await uploadImage();
                           if(selectedImage!=null){
                             if(message=='Tree pose' && task==1){
                               StorageModel storage = StorageModel();
@@ -170,6 +180,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               // writing all the values
 
                               userModel.pose =selectedImage!.path.split('/').last;
+                              userModel.userName = loggedInUser.userName;
+                              userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
                                   .doc('${user?.uid} pose$task')
@@ -179,6 +191,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
+                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
                               }
                             }
@@ -192,6 +205,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               // writing all the values
 
                               userModel.pose =selectedImage!.path.split('/').last;
+                              userModel.userName = loggedInUser.userName;
+                              userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
                                   .doc('${user?.uid} pose$task')
@@ -201,6 +216,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
+                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
                               }
                             }
@@ -214,6 +230,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               // writing all the values
 
                               userModel.pose =selectedImage!.path.split('/').last;
+                              userModel.userName = loggedInUser.userName;
+                              userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
                                   .doc('${user?.uid} pose$task')
@@ -223,6 +241,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
+                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
                               }
                             }
@@ -236,6 +255,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               // writing all the values
 
                               userModel.pose =selectedImage!.path.split('/').last;
+                              userModel.userName = loggedInUser.userName;
+                              userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
                                   .doc('${user?.uid} pose$task')
@@ -245,6 +266,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
+                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
                               }
                             }
@@ -258,6 +280,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               // writing all the values
 
                               userModel.pose =selectedImage!.path.split('/').last;
+                              userModel.userName = loggedInUser.userName;
+                              userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
                                   .doc('${user?.uid} pose$task')
@@ -267,6 +291,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
+                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
                               }
                             }
@@ -308,7 +333,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
   String? message;
   uploadImage() async {
     final request = http.MultipartRequest(
-        "POST", Uri.parse("https://14d6-39-32-179-12.in.ngrok.io/upload"));
+        "POST", Uri.parse("https://d036-39-32-179-12.in.ngrok.io/upload"));
     final headers = {"Content-type": "multipart/form-data"};
     request.files.add(http.MultipartFile('image',
         selectedImage!.readAsBytes().asStream(),

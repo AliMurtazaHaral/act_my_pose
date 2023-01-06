@@ -93,7 +93,11 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Voteees(Player: "Task ${++a}"),
+                                            Text('  Name: ${data['userName']}',style: TextStyle(color: Colors.white),),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Voteees(Player: "Task ${data['taskNumber']}"),
                                             TextButton.icon(
                                               style: ButtonStyle(
                                                   backgroundColor:

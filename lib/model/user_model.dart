@@ -8,8 +8,10 @@ class UserModel {
   String? pose;
   String? vote;
   String? status;
+  String? taskNumber;
   UserModel(
       {
+        this.taskNumber,
         this.pose,
         this.userName,
         this.email,
@@ -62,7 +64,9 @@ class UserModel {
   }
   Map<String, dynamic> toTask() {
     return {
-      'pose':pose
+      'pose':pose,
+      'userName': userName,
+      'taskNumber':taskNumber
     };
   }
   Map<String, dynamic> toVote() {
