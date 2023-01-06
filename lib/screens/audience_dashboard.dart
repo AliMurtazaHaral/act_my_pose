@@ -140,7 +140,7 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>const AudiendeViewTaskScreen()));
                 },
                 child: Text(
-                  "View Tasks",
+                  "Vote Tasks",
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 20,

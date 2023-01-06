@@ -59,6 +59,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
               t.cancel();
               Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
             }
+            selectedImage = null;
             task = task+1;
             timer =300;
 
