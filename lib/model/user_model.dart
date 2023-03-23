@@ -66,7 +66,8 @@ class UserModel {
     return {
       'pose':pose,
       'userName': userName,
-      'taskNumber':taskNumber
+      'taskNumber':taskNumber,
+      'city':city
     };
   }
   Map<String, dynamic> toVote() {

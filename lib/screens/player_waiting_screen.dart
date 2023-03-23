@@ -26,11 +26,22 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
         .collection('users')
         .get()
         .then((QuerySnapshot querySnapshot) {
+          String city = '';
       querySnapshot.docs.forEach((doc) {
         if(doc['status']=='online'){
           setState(() {
-            counter++;
+            if(counter==0){
+              city = doc['city'];
+              counter++;
+            }
           });
+        }
+        if(counter>=1){
+          if(doc['city']==city){
+            setState(() {
+              counter++;
+            });
+          }
         }
       });
     });

@@ -183,6 +183,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               userModel.pose =selectedImage!.path.split('/').last;
                               userModel.userName = loggedInUser.userName;
                               userModel.taskNumber = task.toString();
+                              userModel.city = loggedInUser.city;
                               await firebaseFirestore
                                   .collection("tournament")
                                   .doc('${user?.uid} pose$task')
