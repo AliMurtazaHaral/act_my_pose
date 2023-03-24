@@ -183,9 +183,10 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               userModel.pose =selectedImage!.path.split('/').last;
                               userModel.userName = loggedInUser.userName;
                               userModel.taskNumber = task.toString();
-                              userModel.city = loggedInUser.city;
                               await firebaseFirestore
                                   .collection("tournament")
+                                  .doc('pDp8z1S2hZ1BYgdKuP6C')
+                                  .collection(loggedInUser.city.toString())
                                   .doc('${user?.uid} pose$task')
                                   .set(userModel.toTask()).then((value) =>
                               selectedImage=null,);
@@ -211,6 +212,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
+                                  .doc('pDp8z1S2hZ1BYgdKuP6C')
+                                  .collection(loggedInUser.city.toString())
                                   .doc('${user?.uid} pose$task')
                                   .set(userModel.toTask()).then((value) =>
                               selectedImage=null,);
@@ -236,6 +239,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
+                                  .doc('pDp8z1S2hZ1BYgdKuP6C')
+                                  .collection(loggedInUser.city.toString())
                                   .doc('${user?.uid} pose$task')
                                   .set(userModel.toTask()).then((value) =>
                               selectedImage=null,);
@@ -261,6 +266,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
+                                  .doc('pDp8z1S2hZ1BYgdKuP6C')
+                                  .collection(loggedInUser.city.toString())
                                   .doc('${user?.uid} pose$task')
                                   .set(userModel.toTask()).then((value) =>
                               selectedImage=null,);
@@ -286,6 +293,8 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               userModel.taskNumber = task.toString();
                               await firebaseFirestore
                                   .collection("tournament")
+                                  .doc('pDp8z1S2hZ1BYgdKuP6C')
+                                  .collection(loggedInUser.city.toString())
                                   .doc('${user?.uid} pose$task')
                                   .set(userModel.toTask()).then((value) =>
                               selectedImage=null,);
