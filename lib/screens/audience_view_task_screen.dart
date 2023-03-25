@@ -9,7 +9,12 @@ import '../model/storage_model.dart';
 import '../model/user_model.dart';
 import 'audience_vote_screen.dart';
 class AudiendeViewTaskScreen extends StatefulWidget {
-  const AudiendeViewTaskScreen({Key? key}) : super(key: key);
+
+  final String city;
+
+  AudiendeViewTaskScreen({ required this.city}); //key:key is used
+
+
 
   @override
   State<AudiendeViewTaskScreen> createState() => _AudiendeViewTaskScreenState();
@@ -17,13 +22,6 @@ class AudiendeViewTaskScreen extends StatefulWidget {
 
 class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
   String url = "";
-  final Stream<QuerySnapshot<Map<String, dynamic>>> allMechanic =
-  FirebaseFirestore.instance.collection('tournament').snapshots();
-  Stream<QuerySnapshot<Map<String, dynamic>>> foundMechanic =
-  FirebaseFirestore.instance.collection('tournament').snapshots();
-
-
-
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   final _auth = FirebaseAuth.instance;
@@ -43,6 +41,12 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
   int a = 0;
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot<Map<String, dynamic>>> allMechanic =
+    FirebaseFirestore.instance.collection('tournament')
+        .doc('pDp8z1S2hZ1BYgdKuP6C').collection(widget.city).snapshots();
+    Stream<QuerySnapshot<Map<String, dynamic>>> foundMechanic =
+    FirebaseFirestore.instance.collection('tournament')
+        .doc('pDp8z1S2hZ1BYgdKuP6C').collection(widget.city).snapshots();
     return Scaffold(
       backgroundColor: Color(0xFf201A30),
       appBar: AppBar(

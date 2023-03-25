@@ -24,7 +24,7 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
     "Faisalabad",
     "Multan"
   ];
-  String? selected_item = "Islamabad";
+  String selected_item = "Islamabad";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +62,7 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>SplashScreen())));
 
                   }
-                      , icon: Icon(
+                      , icon: const Icon(
                         Icons.logout,
                         color: Colors.white,
                       )),
@@ -120,7 +120,7 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
                       )
                       .toList(),
                   onChanged: (item) => setState(() {
-                    selected_item = item;
+                    selected_item = item!;
                   })),
             ),
           ),
@@ -137,12 +137,14 @@ class _Audience_Dashboard_ScreenState extends State<Audience_Dashboard_Screen> {
                 padding: const EdgeInsets.fromLTRB(20 ,15 ,20 ,15),
                 minWidth: MediaQuery.of(context).size.width * 0.3,
                 onPressed: () async {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const AudiendeViewTaskScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> AudiendeViewTaskScreen(
+                    city: selected_item
+                  )));
                 },
-                child: Text(
+                child: const Text(
                   "Vote Tasks",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
