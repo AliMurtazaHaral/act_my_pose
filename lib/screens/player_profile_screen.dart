@@ -30,6 +30,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
   }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: const Color(0xFf201A30),
       appBar: AppBar(
@@ -50,7 +51,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
           SizedBox(
             height: MediaQuery.of(context).size.height*0.2,
             width: MediaQuery.of(context).size.width*1,
-            child: Image(
+            child: const Image(
               image: AssetImage(
                 "assets/logo.png",
               ),
@@ -72,10 +73,10 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                     Navigator.push(
                         context, MaterialPageRoute(builder: (context) => PlayerEditProfileScreen()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Edit",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
@@ -85,21 +86,21 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
           SizedBox(height: 35,),
           Align(
             alignment: Alignment.center,
-            child: Text("Game Played   0",style: TextStyle(
+            child: Text("Game Played   ${loggedInUser.gamePlayed}",style: TextStyle(
               color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold
             ),),
           ),
           SizedBox(height: 35,),
           Align(
             alignment: Alignment.center,
-            child: Text("Game Won   0",style: TextStyle(
+            child: Text("Game Won   ${loggedInUser.gameWon}",style: TextStyle(
                 color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold
             ),),
           ),
           SizedBox(height: 35,),
           Align(
             alignment: Alignment.center,
-            child: Text("Win Rate   0.0%",style: TextStyle(
+            child: Text("Win Rate   ${(loggedInUser.gameWon!/loggedInUser.gamePlayed!)*100}%",style: TextStyle(
                 color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold
             ),),
           ),

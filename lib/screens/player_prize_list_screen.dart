@@ -3,7 +3,10 @@
 import 'package:act_my_pose/screens/player_dashboard.dart';
 import 'package:act_my_pose/screens/player_prize_list_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../model/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 void main() => runApp(Player_Prize_List_Screen());
 
 class Player_Prize_List_Screen extends StatelessWidget {
@@ -53,6 +56,7 @@ class Player_Prize_List_Screen extends StatelessWidget {
                       // onPressed:
                       // uploadImage,
                       onPressed: () async {
+                        Fluttertoast.showToast(msg:'Selected prize will reached you soon');
                         Navigator.of(context)
                             .pushAndRemoveUntil(
                           MaterialPageRoute(builder: (builder) => Player_Dashboard_Screen()),
@@ -93,6 +97,20 @@ class _PrizeState extends State<Prize> {
   bool isChecked2 = false;
   bool isChecked3 = false;
   bool isChecked4 = false;
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid).get()
+        .then((value) {
+      loggedInUser = UserModel.fromMapPlayerRegistration(value.data());
+      setState(() {});
+    });
+  }
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
@@ -133,6 +151,7 @@ class _PrizeState extends State<Prize> {
                       isChecked2 = false;
                       isChecked3 = false;
                     }
+                    postToFirebaseStore('Wallet');
                   });
                 },
               ),
@@ -164,6 +183,7 @@ class _PrizeState extends State<Prize> {
                       isChecked2 = false;
                       isChecked3 = false;
                     }
+                    postToFirebaseStore('Bracelet');
                   });
                 },
               ),
@@ -195,6 +215,7 @@ class _PrizeState extends State<Prize> {
                       isChecked4 = false;
                       isChecked3 = false;
                     }
+                    postToFirebaseStore('Locket');
                   });
                 },
               ),
@@ -226,6 +247,7 @@ class _PrizeState extends State<Prize> {
                       isChecked2 = false;
                       isChecked4 = false;
                     }
+                    postToFirebaseStore('Ring');
                   });
                 },
               ),
@@ -233,15 +255,15 @@ class _PrizeState extends State<Prize> {
           ),
           Row(
             children: [
-              Text(
+              const Text(
                 "Diary        ",
-                style: TextStyle(color: const Color(0XFF0DF5E3)),
+                style: TextStyle(color: Color(0XFF0DF5E3)),
               ),
-              ImageIcon(
+              const ImageIcon(
                   AssetImage(
                       "assets/diary.png"
                   ),
-                color: const Color(0XFF0DF5E3),
+                color: Color(0XFF0DF5E3),
               ),
               SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
               Checkbox(
@@ -257,6 +279,7 @@ class _PrizeState extends State<Prize> {
                       isChecked2 = false;
                       isChecked3 = false;
                     }
+                    postToFirebaseStore('Dairy');
                   });
                 },
               ),
@@ -266,5 +289,15 @@ class _PrizeState extends State<Prize> {
         ],
       ),
     );
+  }
+  postToFirebaseStore(String prize) async {
+    User? user =  FirebaseAuth.instance.currentUser;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    UserModel userModel = UserModel();
+    // writing all the values
+    await firebaseFirestore
+        .collection("winnerList")
+        .doc('${user!.uid}')
+        .set({'name':loggedInUser.userName,'prize':prize});
   }
 }

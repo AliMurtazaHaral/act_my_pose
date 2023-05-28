@@ -1,5 +1,6 @@
 import 'package:act_my_pose/screens/player_profile_screen.dart';
 import 'package:act_my_pose/screens/player_task_screen.dart';
+import 'package:act_my_pose/screens/player_wait_result_screen.dart';
 import 'package:act_my_pose/screens/player_waiting_screen.dart';
 import 'package:act_my_pose/screens/splash_screen.dart';
 import 'package:flutter/material.dart';

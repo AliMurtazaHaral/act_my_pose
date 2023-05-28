@@ -9,6 +9,8 @@ class UserModel {
   String? vote;
   String? status;
   String? taskNumber;
+  num? gamePlayed;
+  num? gameWon;
   UserModel(
       {
         this.taskNumber,
@@ -20,7 +22,9 @@ class UserModel {
         this.address,
         this.profession,
         this.vote,
-        this.status
+        this.status,
+        this.gamePlayed,
+        this.gameWon
       });
 
   // receiving data from server
@@ -40,7 +44,10 @@ class UserModel {
         address: map['address'],
         city: map['city'],
       profession: map['profession'],
-      status: map['status']
+      status: map['status'],
+      gamePlayed: map['gamePlayed'],
+      gameWon: map['gameWon']
+
     );
   }
   // sending data to our server
@@ -59,7 +66,9 @@ class UserModel {
       'userName': userName,
       'password': password,
       'address': address,
-      'profession': 'Player'
+      'profession': 'Player',
+      'gamePlayed':0,
+      'gameWon':0
     };
   }
   Map<String, dynamic> toTask() {
@@ -78,6 +87,16 @@ class UserModel {
   Map<String, dynamic> toStatus() {
     return {
       'status':status
+    };
+  }
+  Map<String, dynamic> toGamePlayed() {
+    return {
+      'gamePlayed':gamePlayed
+    };
+  }
+  Map<String, dynamic> toGameWon() {
+    return {
+      'gameWon':gameWon
     };
   }
   Map<String, dynamic> toUpdateAudience() {

@@ -116,8 +116,8 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
 
                                                 // writing all the values
                                                 await firebaseFirestore
-                                                    .collection("users")
-                                                    .doc('${data.id.split(' ')[0]}').collection('votes').doc()
+                                                    .collection("votes")
+                                                    .doc('${data.id.split(' ')[0]}').collection('votes').doc(data.id)
                                                     .set(userModel.toVote());
                                                 Fluttertoast.showToast(msg: "Vote submitted Successfully");
                                                 },
@@ -138,7 +138,7 @@ class _AudiendeViewTaskScreenState extends State<AudiendeViewTaskScreen> {
                                       })
                               ]),
                             )
-                                : SizedBox(height: 1000,);
+                                : SizedBox(height: 10,);
                           },
                         ),
                       ),

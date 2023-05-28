@@ -4,31 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Player_Result_Screen extends StatefulWidget {
-  const Player_Result_Screen({Key? key}) : super(key: key);
-
+  Player_Result_Screen({Key? key,required this.firstP,required this.secondP}) : super(key: key);
+  int? firstP;
+  int? secondP;
   @override
   State<Player_Result_Screen> createState() => _Player_Result_ScreenState();
 }
 
 class _Player_Result_ScreenState extends State<Player_Result_Screen> {
-  List<ChartData> data = [
-    ChartData(1, 35),
-    ChartData(2, 28),
-    ChartData(3, 34),
-    ChartData(4, 32),
-    ChartData(5, 40)
-  ];
-  List<ChartSampleData> chartData = <ChartSampleData>[
-    ChartSampleData(x: 1, y: 30),
-    ChartSampleData(x: 2, y: 25),
-    ChartSampleData(x: 3, y: 20),
-    ChartSampleData(x: 4, y: 35),
-    ChartSampleData(x: 5, y: 40),
-    ChartSampleData(x: 6, y: 45),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    List<ChartSampleData> chartData = <ChartSampleData>[
+      ChartSampleData(x: 1, y: widget.firstP!.toDouble()),
+      ChartSampleData(x: 2, y: widget.secondP!.toDouble()),
+    ];
     return Container(
         constraints: const BoxConstraints.expand(),
         color: Color(0xFf201A30),
@@ -69,7 +60,7 @@ class _Player_Result_ScreenState extends State<Player_Result_Screen> {
                 ],
               ),
               Text(
-                "P5 WINS",
+                "YOU WIN",
                 style: TextStyle(
                     color: const Color(0XFF0DF5E3),
                     fontWeight: FontWeight.bold,

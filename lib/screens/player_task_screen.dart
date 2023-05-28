@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:act_my_pose/model/storage_model.dart';
 import 'package:act_my_pose/screens/audience_result_screen.dart';
-import 'package:act_my_pose/screens/player_result_screen.dart';
+import 'package:act_my_pose/screens/player_wait_result_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -30,9 +30,9 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
   Reference? getUrl;
   Random random = new Random();
    // from 0 upto 99 included
-  int timer =300;
+  int timer =10;
   bool canceltimer = false;
-  String showtimer = "300";
+  String showtimer = "10";
   int task = 1;
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
@@ -49,19 +49,30 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
       setState(() {});
     });
   }
+  postToFirebaseStore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    UserModel userModel = UserModel();
+    userModel.gamePlayed = loggedInUser.gamePlayed!+1;
+    // writing all the values
+    await firebaseFirestore
+        .collection("users")
+        .doc('${user!.uid}')
+        .update(userModel.toGamePlayed());
+  }
   void starttimer() async {
     const onesec = Duration(seconds: 1);
     Timer.periodic(onesec, (Timer t) {
       if(mounted) {
-        setState(() {
+        setState((){
           if (timer < 1) {
             if(task==5) {
               t.cancel();
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+              postToFirebaseStore();
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
             }
             selectedImage = null;
             task = task+1;
-            timer =300;
+            timer =10;
 
           } else if (canceltimer == true) {
             t.cancel();
@@ -192,10 +203,11 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 300;
+                              timer = 10;
                               if(task==6){
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                                await postToFirebaseStore();
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }
                             }
                             else if (message=='warrior2 pose' && task==2){
@@ -219,10 +231,11 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 300;
+                              timer = 10;
                               if(task==6){
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                                await postToFirebaseStore();
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }
                             }
                             else if (message=='T pose' && task==3){
@@ -246,11 +259,17 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 300;
+                              timer = 10;
                               if(task==6){
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
-                              }
+
+                                await postToFirebaseStore();
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
+                                }
+                              await postToFirebaseStore();
+
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                             }
                             else if (message=='triangle pose' && task==4){
                               StorageModel storage = StorageModel();
@@ -273,10 +292,12 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 300;
+                              timer = 10;
                               if(task==6){
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                                await postToFirebaseStore();
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }
                             }
                             else if (message=='Butterfly pose' && task==5){
@@ -300,10 +321,11 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 300;
+                              timer = 10;
                               if(task==6){
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen()));
+                                await postToFirebaseStore();
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }
                             }
                             else{
@@ -315,11 +337,11 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                           }
                         },
                         //selectedImage = null,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.upload_file,
                           color: Colors.white,
                         ),
-                        label: Text(
+                        label: const Text(
                           "Submit Task",
                           style: TextStyle(color: Colors.white),
                         ),

@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:act_my_pose/screens/player_task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +19,7 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
     super.initState();
 
   }
+  String? uid;
   int counter = 0;
   getfirebasedata() async{
 
@@ -27,7 +28,7 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
         .get()
         .then((QuerySnapshot querySnapshot) {
           String city = '';
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         if(doc['status']=='online'){
           setState(() {
             if(counter==0){
@@ -36,22 +37,36 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
             }
           });
         }
-        if(counter>=1){
-          if(doc['city']==city){
+        if(counter>=1 && doc.id != user!.uid && doc['status']=='online' && doc['city']==city){
             setState(() {
+              uid = doc.id;
               counter++;
             });
-          }
+            break;
         }
-      });
+      }
     });
   }
+  User? user =  FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    if(counter>=0){
+      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    return counter>=1?const Player_Task_Screen(): Stack(
+      // writing all the values
+
+      firebaseFirestore
+          .collection("startedGame")
+          .doc(user!.uid)
+          .set({
+        'firstPLayer':user!.uid,
+        'secondPLayer':uid
+      });
+
+    }
+    return counter>=0?const Player_Task_Screen(): Stack(
       children: [
-        Container(
+        SizedBox(
           child: const Image(image: AssetImage(
             "assets/waiting_screen_bg.jpeg"
           ),
