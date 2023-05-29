@@ -30,9 +30,9 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
   Reference? getUrl;
   Random random = new Random();
    // from 0 upto 99 included
-  int timer =10;
+  int timer =300;
   bool canceltimer = false;
-  String showtimer = "10";
+  String showtimer = "300";
   int task = 1;
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
@@ -72,7 +72,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
             }
             selectedImage = null;
             task = task+1;
-            timer =10;
+            timer =300;
 
           } else if (canceltimer == true) {
             t.cancel();
@@ -127,7 +127,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                             fontSize: 30),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 300,
                       ),
                       const Text(
                         "Submit a photo in the following format:",
@@ -135,7 +135,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                             color: Color(0XFF0DF5E3), fontStyle: FontStyle.italic),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 300,
                       ),
                       selectedImage==null?Image(
                         image: AssetImage(
@@ -148,7 +148,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                         height: 200,
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 300,
                       ),
                       TextButton.icon(
                         style: ButtonStyle(
@@ -171,7 +171,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 300,
                       ),
                       TextButton.icon(
                         style: ButtonStyle(
@@ -203,7 +203,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 10;
+                              timer = 300;
                               if(task==6){
                                 Navigator.pop(context);
                                 await postToFirebaseStore();
@@ -231,7 +231,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 10;
+                              timer = 300;
                               if(task==6){
                                 Navigator.pop(context);
                                 await postToFirebaseStore();
@@ -259,7 +259,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 10;
+                              timer = 300;
                               if(task==6){
                                 Navigator.pop(context);
 
@@ -292,7 +292,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 10;
+                              timer = 300;
                               if(task==6){
                                 Navigator.pop(context);
                                 await postToFirebaseStore();
@@ -321,7 +321,7 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               selectedImage=null,);
 
                               task= task+1;
-                              timer = 10;
+                              timer = 300;
                               if(task==6){
                                 Navigator.pop(context);
                                 await postToFirebaseStore();
