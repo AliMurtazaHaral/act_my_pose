@@ -71,7 +71,6 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
             }
             selectedImage = null;
-            task = task+1;
             timer =300;
 
           } else if (canceltimer == true) {
@@ -205,7 +204,6 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
-                                Navigator.pop(context);
                                 await postToFirebaseStore();
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }
@@ -233,7 +231,6 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
-                                Navigator.pop(context);
                                 await postToFirebaseStore();
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }
@@ -261,15 +258,10 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
-                                Navigator.pop(context);
-
                                 await postToFirebaseStore();
 
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                                 }
-                              await postToFirebaseStore();
-
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                             }
                             else if (message=='triangle pose' && task==4){
                               StorageModel storage = StorageModel();
@@ -294,7 +286,6 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
-                                Navigator.pop(context);
                                 await postToFirebaseStore();
 
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
@@ -323,7 +314,6 @@ class _Player_Task_ScreenState extends State<Player_Task_Screen> {
                               task= task+1;
                               timer = 300;
                               if(task==6){
-                                Navigator.pop(context);
                                 await postToFirebaseStore();
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>PlayerWaitResultScreen()));
                               }

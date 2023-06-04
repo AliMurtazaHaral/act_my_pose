@@ -64,7 +64,7 @@ class _Player_Waiting_ScreenState extends State<Player_Waiting_Screen> with Tick
       });
 
     }
-    return counter>=0?const Player_Task_Screen(): Stack(
+    return counter>=2?const Player_Task_Screen(): Stack(
       children: [
         SizedBox(
           child: const Image(image: AssetImage(

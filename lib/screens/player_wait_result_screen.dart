@@ -106,9 +106,43 @@ class _PlayerWaitResultScreenState extends State<PlayerWaitResultScreen> with Ti
     var count1 = snapshot1.size;
     if(count>count1){
       postToFirebase();
+      var collection = FirebaseFirestore.instance.collection("users").doc(id).collection('votes');
+      var snapshots = await collection.get();
+      for (var doc in snapshots.docs) {
+        await doc.reference.delete();
+      }
+      var collection1 = FirebaseFirestore.instance.collection("users").doc(id2).collection('votes');
+      var snapshots1 = await collection1.get();
+      for (var doc in snapshots1.docs) {
+        await doc.reference.delete();
+      }
+      var collection2 = FirebaseFirestore.instance.collection("tournament").doc('pDp8z1S2hZ1BYgdKuP6C').collection(loggedInUser.city.toString());
+      var snapshots2 = await collection2.get();
+      for (var doc in snapshots2.docs) {
+        if(doc.id==id || doc.id==id2){
+          await doc.reference.delete();
+        }
+      }
       Navigator.push(context, MaterialPageRoute(builder: (context)=>Player_Result_Screen(firstP:count,secondP:count1)));
     }
     else{
+      var collection = FirebaseFirestore.instance.collection("users").doc(id).collection('votes');
+      var snapshots = await collection.get();
+      for (var doc in snapshots.docs) {
+        await doc.reference.delete();
+      }
+      var collection1 = FirebaseFirestore.instance.collection("users").doc(id2).collection('votes');
+      var snapshots1 = await collection1.get();
+      for (var doc in snapshots1.docs) {
+        await doc.reference.delete();
+      }
+      var collection2 = FirebaseFirestore.instance.collection("tournament").doc('pDp8z1S2hZ1BYgdKuP6C').collection(loggedInUser.city.toString());
+      var snapshots2 = await collection2.get();
+      for (var doc in snapshots2.docs) {
+        if(doc.id.split(' ')[0]==id || doc.id.split(' ')[0]==id2){
+          await doc.reference.delete();
+        }
+      }
       Navigator.push(context, MaterialPageRoute(builder: (context)=>LostScreen()));
     }
   }
